@@ -18,6 +18,10 @@ const LessonIdPage = async ({
     const { userId } = await auth();
     const { courseId, lessonId } = await params;
 
+    if (!userId) {
+        return redirect("/");
+    }
+
     const {
         lesson,
         module,

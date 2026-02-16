@@ -7,11 +7,11 @@ import { useRouter } from "next/navigation";
 import { Loader2, Lock } from "lucide-react";
 import ReactPlayer from "react-player";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Player = ReactPlayer as any;
-
 import { cn } from "@/lib/utils";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const Player = ReactPlayer as any;
 
 interface VideoPlayerProps {
     playbackId: string;

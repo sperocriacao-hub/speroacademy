@@ -26,14 +26,14 @@ export async function DELETE(
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        const module = await db.module.findUnique({
+        const courseModule = await db.module.findUnique({
             where: {
                 id: moduleId,
                 courseId: courseId,
             }
         });
 
-        if (!module) {
+        if (!courseModule) {
             return new NextResponse("Not Found", { status: 404 });
         }
 
@@ -93,7 +93,7 @@ export async function PATCH(
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        const module = await db.module.update({
+        const courseModule = await db.module.update({
             where: {
                 id: moduleId,
                 courseId: courseId,
@@ -108,7 +108,7 @@ export async function PATCH(
         // Not strictly required by schema but good for logic. 
         // For now, allow direct update.
 
-        return NextResponse.json(module);
+        return NextResponse.json(courseModule);
     } catch (error) {
         console.log("[MODULE_ID]", error);
         return new NextResponse("Internal Error", { status: 500 });

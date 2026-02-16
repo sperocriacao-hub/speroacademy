@@ -26,19 +26,28 @@ export async function PATCH(
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        const module = await db.module.findUnique({
+        const courseModule = await db.module.findUnique({
             where: {
                 id: moduleId,
                 courseId: courseId,
+            },
+            include: {
+                lessons: true,
             }
         });
 
-        if (!module) {
+        if (!courseModule) {
             return new NextResponse("Not Found", { status: 404 });
         }
 
+        const hasPublishedLessons = courseModule.lessons.length > 0;
+
         // Usually you check validation here, e.g. does it have published lessons?
         // For now, just allow publishing.
+
+        if (!hasPublishedLessons || !courseModule.title || !courseModule.description) {
+            return new NextResponse("Missing required fields", { status: 400 });
+        }
 
         const publishedModule = await db.module.update({
             where: {

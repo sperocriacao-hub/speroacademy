@@ -21,7 +21,7 @@ const ModuleIdPage = async ({
 
     const { courseId, moduleId } = await params;
 
-    const module = await db.module.findUnique({
+    const courseModule = await db.module.findUnique({
         where: {
             id: moduleId,
             courseId: courseId,
@@ -35,13 +35,13 @@ const ModuleIdPage = async ({
         }
     });
 
-    if (!module) {
+    if (!courseModule) {
         return redirect("/");
     }
 
     const requiredFields = [
-        module.title,
-        module.lessons.some(lesson => lesson.isPublished),
+        courseModule.title,
+        courseModule.lessons.some(lesson => lesson.isPublished),
     ];
 
     const totalFields = requiredFields.length;
@@ -49,12 +49,14 @@ const ModuleIdPage = async ({
 
     const completionText = `(${completedFields}/${totalFields})`;
 
+    const isComplete = requiredFields.every(Boolean); // Added isComplete
+
     return (
         <div className="p-6">
             <div className="flex items-center justify-between">
-                <div className="w-full">
+                <div className="flex flex-col gap-y-2">
                     <Link
-                        href={`/teacher/courses/${courseId}`}
+                        href={`/teacher/courses/${params.courseId}`}
                         className="flex items-center text-sm hover:opacity-75 transition mb-6"
                     >
                         <ArrowLeft className="h-4 w-4 mr-2" />
@@ -70,10 +72,10 @@ const ModuleIdPage = async ({
                             </span>
                         </div>
                         <ModuleActions
-                            disabled={!module.isPublished && !completedFields} // simplified logic, verify later
-                            courseId={courseId}
-                            moduleId={moduleId}
-                            isPublished={module.isPublished}
+                            disabled={!isComplete}
+                            courseId={params.courseId}
+                            moduleId={params.moduleId}
+                            isPublished={courseModule.isPublished}
                         />
                     </div>
                 </div>
@@ -82,33 +84,42 @@ const ModuleIdPage = async ({
                 <div className="space-y-4">
                     <div>
                         <div className="flex items-center gap-x-2">
-                            <div className="bg-sky-100 p-2 rounded-full">
-                                <LayoutDashboard className="h-8 w-8 text-sky-700" />
-                            </div>
+                            <IconBadge icon={LayoutDashboard} />
                             <h2 className="text-xl">
                                 Customize your module
                             </h2>
                         </div>
                         <ModuleTitleForm
-                            initialData={module}
-                            courseId={courseId}
-                            moduleId={moduleId}
+                            initialData={courseModule}
+                            courseId={params.courseId}
+                            moduleId={params.moduleId}
                         />
+                        <ModuleDescriptionForm
+                            initialData={courseModule}
+                            courseId={params.courseId}
+                            moduleId={params.moduleId}
+                        />
+                    </div>
+                    <div>
+                        <div className="flex items-center gap-x-2">
+                            <IconBadge icon={Eye} />
+                            <h2 className="text-xl">
+                                Access Settings
+                            </h2>
+                        </div>
                     </div>
                 </div>
                 <div>
                     <div className="flex items-center gap-x-2">
-                        <div className="bg-sky-100 p-2 rounded-full">
-                            <ListChecks className="h-8 w-8 text-sky-700" />
-                        </div>
+                        <IconBadge icon={Video} />
                         <h2 className="text-xl">
-                            Module lessons
+                            Add a video
                         </h2>
                     </div>
                     <LessonsForm
-                        initialData={module}
-                        courseId={courseId}
-                        moduleId={moduleId}
+                        initialData={courseModule}
+                        courseId={params.courseId}
+                        moduleId={params.moduleId}
                     />
                 </div>
             </div>

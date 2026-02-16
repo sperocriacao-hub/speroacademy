@@ -37,7 +37,7 @@ export async function POST(
 
         const newPosition = lastModule ? lastModule.position + 1 : 1;
 
-        const module = await db.module.create({
+        const courseModule = await db.module.create({
             data: {
                 title,
                 courseId: courseId,
@@ -45,7 +45,7 @@ export async function POST(
             },
         });
 
-        return NextResponse.json(module);
+        return NextResponse.json(courseModule);
     } catch (error) {
         console.log("[MODULES]", error);
         return new NextResponse("Internal Error", { status: 500 });

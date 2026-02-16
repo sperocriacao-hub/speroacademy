@@ -27,14 +27,14 @@ export async function POST(
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        const module = await db.module.findUnique({
+        const courseModule = await db.module.findUnique({
             where: {
                 id: moduleId,
                 courseId: courseId,
             }
         });
 
-        if (!module) {
+        if (!courseModule) {
             return new NextResponse("Not Found", { status: 404 });
         }
 

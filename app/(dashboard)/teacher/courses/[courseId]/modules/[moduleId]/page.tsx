@@ -59,7 +59,7 @@ const ModuleIdPage = async ({
             <div className="flex items-center justify-between">
                 <div className="flex flex-col gap-y-2">
                     <Link
-                        href={`/teacher/courses/${params.courseId}`}
+                        href={`/teacher/courses/${courseId}`}
                         className="flex items-center text-sm hover:opacity-75 transition mb-6"
                     >
                         <ArrowLeft className="h-4 w-4 mr-2" />
@@ -76,8 +76,8 @@ const ModuleIdPage = async ({
                         </div>
                         <ModuleActions
                             disabled={!isComplete}
-                            courseId={params.courseId}
-                            moduleId={params.moduleId}
+                            courseId={courseId}
+                            moduleId={moduleId}
                             isPublished={courseModule.isPublished}
                         />
                     </div>
@@ -94,13 +94,13 @@ const ModuleIdPage = async ({
                         </div>
                         <ModuleTitleForm
                             initialData={courseModule}
-                            courseId={params.courseId}
-                            moduleId={params.moduleId}
+                            courseId={courseId}
+                            moduleId={moduleId}
                         />
                         <ModuleDescriptionForm
                             initialData={courseModule}
-                            courseId={params.courseId}
-                            moduleId={params.moduleId}
+                            courseId={courseId}
+                            moduleId={moduleId}
                         />
                     </div>
                     <div>
@@ -121,8 +121,8 @@ const ModuleIdPage = async ({
                     </div>
                     <LessonsForm
                         initialData={courseModule}
-                        courseId={params.courseId}
-                        moduleId={params.moduleId}
+                        courseId={courseId}
+                        moduleId={moduleId}
                     />
                 </div>
             </div>

@@ -8,10 +8,10 @@ import { CoursesList } from "@/components/courses-list";
 import { Categories } from "./_components/categories";
 
 interface SearchPageProps {
-    searchParams: {
+    searchParams: Promise<{
         title: string;
         categoryId: string;
-    }
+    }>
 };
 
 const SearchPage = async ({
@@ -33,7 +33,8 @@ const SearchPage = async ({
 
     const courses = await getCourses({
         userId,
-        ...searchParams,
+        title,
+        categoryId,
     });
 
     return (

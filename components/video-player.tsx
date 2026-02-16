@@ -91,7 +91,7 @@ export const VideoPlayer = ({
                                 controlsList: 'nodownload'
                             }
                         }
-                    } as any}
+                    }}
                 />
             )}
         </div>

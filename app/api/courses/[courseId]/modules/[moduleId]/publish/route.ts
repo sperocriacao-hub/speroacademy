@@ -45,7 +45,7 @@ export async function PATCH(
         // Usually you check validation here, e.g. does it have published lessons?
         // For now, just allow publishing.
 
-        if (!hasPublishedLessons || !courseModule.title || !courseModule.description) {
+        if (!hasPublishedLessons || !courseModule.title) {
             return new NextResponse("Missing required fields", { status: 400 });
         }
 

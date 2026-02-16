@@ -6,7 +6,6 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { IconBadge } from "@/components/icon-badge";
 import { ModuleTitleForm } from "./_components/module-title-form";
-import { ModuleDescriptionForm } from "./_components/module-description-form";
 import { ModuleActions } from "./_components/module-actions";
 import { LessonsForm } from "./_components/lessons-form";
 import { Eye, Video } from "lucide-react";
@@ -30,7 +29,7 @@ const ModuleIdPage = async ({
             courseId: courseId,
         },
         include: {
-            lessons: { // Renamed from chapters to lessons in my mind, but schema has Lessons.
+            lessons: {
                 orderBy: {
                     position: "asc",
                 }
@@ -52,7 +51,7 @@ const ModuleIdPage = async ({
 
     const completionText = `(${completedFields}/${totalFields})`;
 
-    const isComplete = requiredFields.every(Boolean); // Added isComplete
+    const isComplete = requiredFields.every(Boolean);
 
     return (
         <div className="p-6">
@@ -93,11 +92,6 @@ const ModuleIdPage = async ({
                             </h2>
                         </div>
                         <ModuleTitleForm
-                            initialData={courseModule}
-                            courseId={courseId}
-                            moduleId={moduleId}
-                        />
-                        <ModuleDescriptionForm
                             initialData={courseModule}
                             courseId={courseId}
                             moduleId={moduleId}

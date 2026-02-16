@@ -124,6 +124,7 @@ model Purchase {
 
   @@index([courseId])
   @@index([userId])
+  @@unique([userId, courseId])
 }
 
 model UserProgress {

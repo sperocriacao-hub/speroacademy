@@ -45,7 +45,7 @@ export const getProgress = async (
             }
         });
 
-        const progressPercentage = (validCompletedLessons / publishedLessonIds.length) * 100;
+        const progressPercentage = publishedLessonIds.length === 0 ? 0 : (validCompletedLessons / publishedLessonIds.length) * 100;
 
         return progressPercentage;
     } catch (error) {

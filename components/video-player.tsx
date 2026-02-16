@@ -74,6 +74,7 @@ export const VideoPlayer = ({
                 </div>
             )}
             {!isLocked && (
+                // @ts-ignore
                 <ReactPlayer
                     url={playbackId}
                     className={cn(

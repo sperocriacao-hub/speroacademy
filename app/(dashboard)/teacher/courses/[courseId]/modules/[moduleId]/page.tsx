@@ -4,9 +4,12 @@ import { ArrowLeft, LayoutDashboard, ListChecks } from "lucide-react";
 import Link from "next/link";
 
 import { db } from "@/lib/db";
+import { IconBadge } from "@/components/icon-badge";
 import { ModuleTitleForm } from "./_components/module-title-form";
+import { ModuleDescriptionForm } from "./_components/module-description-form";
 import { ModuleActions } from "./_components/module-actions";
 import { LessonsForm } from "./_components/lessons-form";
+import { Eye, Video } from "lucide-react";
 
 const ModuleIdPage = async ({
     params

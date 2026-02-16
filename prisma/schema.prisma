@@ -41,6 +41,7 @@ model Course {
   modules     Module[]
   enrollments Enrollment[]
   purchases   Purchase[]
+  attachments Attachment[]
 
   categoryId String?
   category   Category? @relation(fields: [categoryId], references: [id])
@@ -140,4 +141,18 @@ model UserProgress {
   @@unique([userId, lessonId])
   @@index([lessonId])
   @@index([userId])
+}
+
+model Attachment {
+  id String @id @default(uuid())
+  name String
+  url String @db.Text
+
+  courseId String
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
 }

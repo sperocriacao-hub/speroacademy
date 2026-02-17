@@ -173,12 +173,15 @@ model Attachment {
 
 model Transaction {
   id     String @id @default(uuid())
-  userId String
+  
+  userId String // Student ID
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   courseId String
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
+  instructorId String // Snapshot of instructor at time of transaction
+  
   amount   Float
   currency String @default("BRL")
 
@@ -186,10 +189,12 @@ model Transaction {
   originalCurrency String?
   exchangeRate     Float?
 
-  platformShare   Float
-  instructorShare Float
+  platformFeePercent Float @default(10) // e.g. 10.0 for 10%
+  platformShare      Float
+  instructorShare    Float
 
-  stripePaymentId String @unique
+  paymentMethod   String @default("STRIPE") // STRIPE, PAYPAL, MBWAY
+  stripePaymentId String? @unique // Made optional as it might be PayPal or others
   status          String @default("COMPLETED") // PENDING, COMPLETED, REFUNDED
 
   createdAt DateTime @default(now())
@@ -197,6 +202,20 @@ model Transaction {
 
   @@index([courseId])
   @@index([userId])
+  @@index([instructorId])
+}
+
+model Wallet {
+  id      String @id @default(uuid())
+  
+  instructorId String @unique
+  instructor   User   @relation(fields: [instructorId], references: [id], onDelete: Cascade)
+
+  balance  Float @default(0)
+  currency String @default("BRL")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model MuxData {

@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Layout, Compass, List, BarChart } from "lucide-react";
+import { Layout, Compass, List, BarChart, CircleDollarSign } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const guestRoutes = [
@@ -28,6 +28,11 @@ const teacherRoutes = [
         icon: BarChart,
         label: "Analytics",
         href: "/teacher/analytics",
+    },
+    {
+        icon: CircleDollarSign,
+        label: "Wallet",
+        href: "/teacher/wallet",
     },
 ]
 

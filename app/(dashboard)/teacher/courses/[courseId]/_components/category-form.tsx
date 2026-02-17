@@ -16,27 +16,28 @@ import {
     FormItem,
     FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Combobox } from "@/components/ui/combobox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-interface TitleFormProps {
+interface CategoryFormProps {
     initialData: {
-        title: string;
+        categoryId: string | null;
     };
     courseId: string;
+    options: { label: string; value: string; }[];
 }
 
 const formSchema = z.object({
-    title: z.string().min(1, {
-        message: "Title is required",
-    }),
+    categoryId: z.string().min(1),
 });
 
-export const TitleForm = ({
+export const CategoryForm = ({
     initialData,
-    courseId
-}: TitleFormProps) => {
+    courseId,
+    options,
+}: CategoryFormProps) => {
     const [isEditing, setIsEditing] = useState(false);
 
     const toggleEdit = () => setIsEditing((current) => !current);
@@ -45,7 +46,9 @@ export const TitleForm = ({
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: initialData,
+        defaultValues: {
+            categoryId: initialData.categoryId || "",
+        },
     });
 
     const { isSubmitting, isValid } = form.formState;
@@ -61,11 +64,13 @@ export const TitleForm = ({
         }
     }
 
+    const selectedOption = options.find((option) => option.value === initialData.categoryId);
+
     return (
         <Card className="mt-6 border shadow-sm">
             <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
                 <CardTitle className="text-base font-medium">
-                    Course title
+                    Course category
                 </CardTitle>
                 <Button onClick={toggleEdit} variant="ghost" size="sm">
                     {isEditing ? (
@@ -80,8 +85,11 @@ export const TitleForm = ({
             </CardHeader>
             <CardContent className="p-4 pt-0">
                 {!isEditing && (
-                    <p className="text-sm">
-                        {initialData.title}
+                    <p className={cn(
+                        "text-sm",
+                        !initialData.categoryId && "text-slate-500 italic"
+                    )}>
+                        {selectedOption?.label || "No category"}
                     </p>
                 )}
                 {isEditing && (
@@ -92,13 +100,12 @@ export const TitleForm = ({
                         >
                             <FormField
                                 control={form.control}
-                                name="title"
+                                name="categoryId"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormControl>
-                                            <Input
-                                                disabled={isSubmitting}
-                                                placeholder="e.g. 'Advanced Web Development'"
+                                            <Combobox
+                                                options={options}
                                                 {...field}
                                             />
                                         </FormControl>

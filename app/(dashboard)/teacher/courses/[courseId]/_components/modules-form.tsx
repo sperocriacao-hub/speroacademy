@@ -20,6 +20,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 interface ModulesFormProps {
     initialData: Course & { modules: Module[] };
@@ -64,10 +66,12 @@ export const ModulesForm = ({
     const modules = initialData.modules || [];
 
     return (
-        <div className="mt-6 border bg-slate-100 rounded-md p-4">
-            <div className="font-medium flex items-center justify-between">
-                Course modules
-                <Button onClick={toggleCreating} variant="ghost">
+        <Card className="mt-6 border shadow-sm">
+            <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
+                <CardTitle className="text-base font-medium">
+                    Course modules
+                </CardTitle>
+                <Button onClick={toggleCreating} variant="ghost" size="sm">
                     {isCreating ? (
                         <>Cancel</>
                     ) : (
@@ -77,55 +81,68 @@ export const ModulesForm = ({
                         </>
                     )}
                 </Button>
-            </div>
-
-            {isCreating && (
-                <Form {...form}>
-                    <form
-                        onSubmit={form.handleSubmit(onSubmit)}
-                        className="space-y-4 mt-4"
-                    >
-                        <FormField
-                            control={form.control}
-                            name="title"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormControl>
-                                        <Input
-                                            disabled={isSubmitting}
-                                            placeholder="e.g. 'Introduction to the course'"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <Button
-                            disabled={!isValid || isSubmitting}
-                            type="submit"
+            </CardHeader>
+            <CardContent className="p-4 pt-0">
+                {isCreating && (
+                    <Form {...form}>
+                        <form
+                            onSubmit={form.handleSubmit(onSubmit)}
+                            className="space-y-4 mb-4"
                         >
-                            Create
-                        </Button>
-                    </form>
-                </Form>
-            )}
-            {!isCreating && (
-                <div className={cn(
-                    "text-sm mt-2",
-                    !modules.length && "text-slate-500 italic"
-                )}>
-                    {!modules.length && "No modules"}
-                    <div className="flex flex-col gap-y-2 mt-2">
-                        {modules.map((module) => (
-                            <div key={module.id} className="flex items-center gap-x-2 bg-slate-200 border-slate-200 border text-slate-700 rounded-md mb-2 text-sm p-2">
-                                {module.title}
-                                {/* Published status is on Lesson, not Module usually, but check schema. Schema has Lessons. Module is just grouping. */}
-                            </div>
-                        ))}
+                            <FormField
+                                control={form.control}
+                                name="title"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormControl>
+                                            <Input
+                                                disabled={isSubmitting}
+                                                placeholder="e.g. 'Introduction to the course'"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <Button
+                                disabled={!isValid || isSubmitting}
+                                type="submit"
+                            >
+                                Create
+                            </Button>
+                        </form>
+                    </Form>
+                )}
+                {!isCreating && (
+                    <div className={cn(
+                        "text-sm",
+                        !modules.length && "text-slate-500 italic"
+                    )}>
+                        {!modules.length && "No modules"}
+                        <div className="flex flex-col gap-y-2">
+                            {modules.map((module) => (
+                                <div key={module.id} className="flex items-center gap-x-2 bg-slate-100 border text-slate-700 rounded-md p-3">
+                                    <div className="flex-1 truncate font-medium">
+                                        {module.title}
+                                    </div>
+                                    <div className="ml-auto pr-2 flex items-center">
+                                        <Badge className={cn(
+                                            "bg-slate-500",
+                                            module.isPublished && "bg-sky-700"
+                                        )}>
+                                            {module.isPublished ? "Published" : "Draft"}
+                                        </Badge>
+                                        <div onClick={() => router.push(`/teacher/courses/${courseId}/modules/${module.id}`)} className="cursor-pointer hover:underline text-sky-700 text-xs ml-4">
+                                            Edit
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
-            )}
-        </div>
+                )}
+            </CardContent>
+        </Card>
     )
 }

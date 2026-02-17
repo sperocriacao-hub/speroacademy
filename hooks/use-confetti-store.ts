@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface ConfettiStore {
+type ConfettiStore = {
     isOpen: boolean;
     onOpen: () => void;
     onClose: () => void;

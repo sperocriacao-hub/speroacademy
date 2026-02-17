@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface DescriptionFormProps {
     initialData: {
@@ -64,61 +65,65 @@ export const DescriptionForm = ({
     }
 
     return (
-        <div className="mt-6 border bg-slate-100 rounded-md p-4">
-            <div className="font-medium flex items-center justify-between">
-                Course description
-                <Button onClick={toggleEdit} variant="ghost">
+        <Card className="mt-6 border shadow-sm">
+            <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
+                <CardTitle className="text-base font-medium">
+                    Course description
+                </CardTitle>
+                <Button onClick={toggleEdit} variant="ghost" size="sm">
                     {isEditing ? (
                         <>Cancel</>
                     ) : (
                         <>
                             <Pencil className="h-4 w-4 mr-2" />
-                            Edit description
+                            Edit
                         </>
                     )}
                 </Button>
-            </div>
-            {!isEditing && (
-                <p className={cn(
-                    "text-sm mt-2",
-                    !initialData.description && "text-slate-500 italic"
-                )}>
-                    {initialData.description || "No description"}
-                </p>
-            )}
-            {isEditing && (
-                <Form {...form}>
-                    <form
-                        onSubmit={form.handleSubmit(onSubmit)}
-                        className="space-y-4 mt-4"
-                    >
-                        <FormField
-                            control={form.control}
-                            name="description"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormControl>
-                                        <Textarea
-                                            disabled={isSubmitting}
-                                            placeholder="e.g. 'This course is about...'"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <div className="flex items-center gap-x-2">
-                            <Button
-                                disabled={!isValid || isSubmitting}
-                                type="submit"
-                            >
-                                Save
-                            </Button>
-                        </div>
-                    </form>
-                </Form>
-            )}
-        </div>
+            </CardHeader>
+            <CardContent className="p-4 pt-0">
+                {!isEditing && (
+                    <p className={cn(
+                        "text-sm",
+                        !initialData.description && "text-slate-500 italic"
+                    )}>
+                        {initialData.description || "No description"}
+                    </p>
+                )}
+                {isEditing && (
+                    <Form {...form}>
+                        <form
+                            onSubmit={form.handleSubmit(onSubmit)}
+                            className="space-y-4"
+                        >
+                            <FormField
+                                control={form.control}
+                                name="description"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormControl>
+                                            <Textarea
+                                                disabled={isSubmitting}
+                                                placeholder="e.g. 'This course is about...'"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <div className="flex items-center gap-x-2">
+                                <Button
+                                    disabled={!isValid || isSubmitting}
+                                    type="submit"
+                                >
+                                    Save
+                                </Button>
+                            </div>
+                        </form>
+                    </Form>
+                )}
+            </CardContent>
+        </Card>
     )
 }

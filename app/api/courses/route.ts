@@ -8,10 +8,28 @@ export async function POST(
 ) {
     try {
         const { userId } = auth();
+        const user = await currentUser();
         const { title } = await req.json();
 
-        if (!userId) {
+        if (!userId || !user) {
             return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        // Ensure user exists in DB to satisfy foreign key
+        const email = user.emailAddresses?.[0]?.emailAddress;
+        if (email) {
+            await db.user.upsert({
+                where: { id: userId },
+                create: {
+                    id: userId,
+                    email: email,
+                    name: user.firstName ? `${user.firstName} ${user.lastName || ""}` : email,
+                    role: "INSTRUCTOR", // Defaulting to instructor since they are creating a course
+                },
+                update: {
+                    email: email, // Keep email in sync
+                }
+            });
         }
 
         const course = await db.course.create({

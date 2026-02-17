@@ -71,11 +71,11 @@ export const columns: ColumnDef<Transaction>[] = [
             return (
                 <Badge className={cn(
                     "bg-slate-500",
-                    status === "COMPLETED" && "bg-emerald-700",
-                    status === "REFUNDED" && "bg-rose-700",
-                    status === "PENDING" && "bg-yellow-700",
+                    status === "COMPLETED" && "bg-emerald-600 hover:bg-emerald-600",
+                    status === "REFUNDED" && "bg-rose-600 hover:bg-rose-600",
+                    status === "PENDING" && "bg-yellow-600 hover:bg-yellow-600",
                 )}>
-                    {status}
+                    {status === "COMPLETED" ? "Paid" : status}
                 </Badge>
             )
         }

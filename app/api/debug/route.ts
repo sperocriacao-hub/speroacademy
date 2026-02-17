@@ -1,17 +1,42 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 export async function GET() {
     try {
         const { userId } = auth();
+        const user = await currentUser();
         const headers = { 'Content-Type': 'application/json' };
 
-        if (!userId) {
-            return new NextResponse(JSON.stringify({ error: "Unauthorized (Not logged in)" }), { status: 401, headers });
+        if (!userId || !user) {
+            return new NextResponse(JSON.stringify({ error: "Unauthorized (Not logged in or User missing)" }), { status: 401, headers });
         }
 
         const report: any = { status: "STARTING_CHECKS", userId };
+
+        // 0. Ensure User Exists (Lazy Sync)
+        try {
+            const email = user.emailAddresses?.[0]?.emailAddress;
+            if (email) {
+                await db.user.upsert({
+                    where: { id: userId },
+                    create: {
+                        id: userId,
+                        email: email,
+                        name: user.firstName ? `${user.firstName} ${user.lastName || ""}` : email,
+                        role: "INSTRUCTOR",
+                    },
+                    update: {
+                        email: email,
+                    }
+                });
+                report.userSync = "OK - Synced " + email;
+            } else {
+                report.userSync = "FAILED - No Email";
+            }
+        } catch (e: any) {
+            report.userSync = `FAILED: ${e.message}`;
+        }
 
         // 1. Test Category Fetch (Read)
         try {

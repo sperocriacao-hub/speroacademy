@@ -14,17 +14,19 @@ enum Role {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  name      String?
-  role      Role     @default(STUDENT)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              String   @id @default(uuid())
+  email           String   @unique
+  name            String?
+  role            Role     @default(STUDENT)
+  stripeConnectId String?  @unique
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
-  createdCourses Course[]     @relation("CreatedCourses")
+  createdCourses Course[]       @relation("CreatedCourses")
   enrollments    Enrollment[]
   purchases      Purchase[]
   progress       UserProgress[]
+  Transaction    Transaction[]
 }
 
 model Course {
@@ -46,22 +48,23 @@ model Course {
   categoryId String?
   category   Category? @relation(fields: [categoryId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Transaction Transaction[]
 
   @@index([categoryId])
 }
 
 model Category {
-  id   String @id @default(uuid())
-  name String @unique
+  id      String   @id @default(uuid())
+  name    String   @unique
   courses Course[]
 }
 
 model Module {
-  id       String @id @default(uuid())
-  title    String
-  position Int
+  id          String  @id @default(uuid())
+  title       String
+  position    Int
   isPublished Boolean @default(false)
 
   courseId String
@@ -75,19 +78,28 @@ model Module {
   @@index([courseId])
 }
 
+enum LessonType {
+  VIDEO
+  IN_PERSON
+}
+
 model Lesson {
-  id          String  @id @default(uuid())
+  id          String     @id @default(uuid())
   title       String
-  description String? @db.Text
+  description String?    @db.Text
   videoUrl    String?
+  type        LessonType @default(VIDEO)
+  location    String?
+  dateTime    DateTime?
   position    Int
-  isPublished Boolean @default(false)
-  isFree      Boolean @default(false)
+  isPublished Boolean    @default(false)
+  isFree      Boolean    @default(false)
 
   moduleId String
   module   Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
 
   userProgress UserProgress[]
+  muxData MuxData?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -122,9 +134,9 @@ model Purchase {
   price     Float
   createdAt DateTime @default(now())
 
+  @@unique([userId, courseId])
   @@index([courseId])
   @@index([userId])
-  @@unique([userId, courseId])
 }
 
 model UserProgress {
@@ -145,15 +157,52 @@ model UserProgress {
 }
 
 model Attachment {
-  id String @id @default(uuid())
+  id   String @id @default(uuid())
   name String
-  url String @db.Text
+  url  String @db.Text
 
   courseId String
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([courseId])
+}
+
+model Transaction {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  amount   Float
+  currency String @default("BRL")
+
+  originalAmount   Float?
+  originalCurrency String?
+  exchangeRate     Float?
+
+  platformShare   Float
+  instructorShare Float
+
+  stripePaymentId String @unique
+  status          String @default("COMPLETED") // PENDING, COMPLETED, REFUNDED
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+  @@index([userId])
+}
+
+model MuxData {
+  id String @id @default(uuid())
+  assetId String
+  playbackId String?
+
+  lessonId String @unique
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
 }

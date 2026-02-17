@@ -26,7 +26,9 @@ const LessonIdPage = async ({
     const lesson = await db.lesson.findUnique({
         where: {
             id: lessonId,
-            moduleId: moduleId,
+        },
+        include: {
+            muxData: true,
         },
     });
 

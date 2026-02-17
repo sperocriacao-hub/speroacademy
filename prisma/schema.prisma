@@ -227,3 +227,11 @@ model MuxData {
   lessonId String @unique
   lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
 }
+
+model SystemSettings {
+  id                String   @id @default(uuid())
+  platformFeePercent Float    @default(10.0) // Percentage (e.g., 10.0 for 10%)
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}

@@ -37,7 +37,8 @@ export const processCourseSale = async (
         paymentId
     } = request;
 
-    const platformFeePercent = config?.platformFeePercent || 15;
+    const settings = await db.systemSettings.findFirst();
+    const platformFeePercent = config?.platformFeePercent || settings?.platformFeePercent || 15;
 
     // 1. Calculate Deductions
     let operationalFee = 0;

@@ -13,9 +13,9 @@ import { VideoPlayer } from "@/components/video-player";
 const LessonIdPage = async ({
     params
 }: {
-    params: Promise<{ courseId: string; lessonId: string }>;
+    params: { courseId: string; lessonId: string };
 }) => {
-    const { userId } = await auth();
+    const { userId } = auth();
     const { courseId, lessonId } = await params;
 
     if (!userId) {

@@ -5,18 +5,18 @@ import { db } from "@/lib/db";
 
 export async function PUT(
     req: Request,
-    { params }: { params: Promise<{ courseId: string; moduleId: string; lessonId: string }> }
+    { params }: { params: { courseId: string; moduleId: string; lessonId: string } }
 ) {
     try {
-        const { userId } = await auth();
+        const { userId } = auth();
         const { isCompleted } = await req.json();
-        const { courseId, moduleId } = await params;
+        const { courseId, moduleId } = params;
 
         if (!userId) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        const { lessonId: paramLessonId } = await params;
+        const { lessonId: paramLessonId } = params;
 
         const userProgress = await db.userProgress.upsert({
             where: {

@@ -13,15 +13,15 @@ import { Eye, Video } from "lucide-react";
 const ModuleIdPage = async ({
     params
 }: {
-    params: Promise<{ courseId: string; moduleId: string }>
+    params: { courseId: string; moduleId: string }
 }) => {
-    const { userId } = await auth();
+    const { userId } = auth();
 
     if (!userId) {
         return redirect("/");
     }
 
-    const { courseId, moduleId } = await params;
+    const { courseId, moduleId } = params;
 
     const courseModule = await db.module.findUnique({
         where: {

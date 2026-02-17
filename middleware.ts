@@ -7,9 +7,9 @@ const isPublicRoute = createRouteMatcher([
     '/api/webhook/clerk(.*)' // Webhooks need to be public
 ])
 
-export default clerkMiddleware(async (auth, request) => {
+export default clerkMiddleware((auth, request) => {
     if (!isPublicRoute(request)) {
-        await auth.protect()
+        auth().protect()
     }
 })
 

@@ -12,15 +12,15 @@ import { ModulesForm } from "./_components/modules-form";
 const CourseIdPage = async ({
     params
 }: {
-    params: Promise<{ courseId: string }>
+    params: { courseId: string }
 }) => {
-    const { userId } = await auth();
+    const { userId } = auth();
 
     if (!userId) {
         return redirect("/");
     }
 
-    const { courseId } = await params;
+    const { courseId } = params;
 
     const course = await db.course.findUnique({
         where: {

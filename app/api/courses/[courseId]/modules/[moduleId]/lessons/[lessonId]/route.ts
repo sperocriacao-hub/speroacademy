@@ -5,11 +5,11 @@ import { db } from "@/lib/db";
 
 export async function DELETE(
     req: Request,
-    { params }: { params: Promise<{ courseId: string; moduleId: string; lessonId: string }> }
+    { params }: { params: { courseId: string; moduleId: string; lessonId: string } }
 ) {
     try {
-        const { userId } = await auth();
-        const { courseId, moduleId, lessonId } = await params;
+        const { userId } = auth();
+        const { courseId, moduleId, lessonId } = params;
 
         if (!userId) {
             return new NextResponse("Unauthorized", { status: 401 });
@@ -71,11 +71,11 @@ export async function DELETE(
 
 export async function PATCH(
     req: Request,
-    { params }: { params: Promise<{ courseId: string; moduleId: string; lessonId: string }> }
+    { params }: { params: { courseId: string; moduleId: string; lessonId: string } }
 ) {
     try {
-        const { userId } = await auth();
-        const { courseId, moduleId, lessonId } = await params;
+        const { userId } = auth();
+        const { courseId, moduleId, lessonId } = params;
         const { isPublished, ...values } = await req.json();
 
         if (!userId) {

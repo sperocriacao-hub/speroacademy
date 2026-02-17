@@ -13,15 +13,15 @@ import { LessonActions } from "./_components/lesson-actions";
 const LessonIdPage = async ({
     params
 }: {
-    params: Promise<{ courseId: string; moduleId: string; lessonId: string }>
+    params: { courseId: string; moduleId: string; lessonId: string }
 }) => {
-    const { userId } = await auth();
+    const { userId } = auth();
 
     if (!userId) {
         return redirect("/");
     }
 
-    const { courseId, moduleId, lessonId } = await params;
+    const { courseId, moduleId, lessonId } = params;
 
     const lesson = await db.lesson.findUnique({
         where: {

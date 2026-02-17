@@ -8,22 +8,22 @@ import { CoursesList } from "@/components/courses-list";
 import { Categories } from "./_components/categories";
 
 interface SearchPageProps {
-    searchParams: Promise<{
+    searchParams: {
         title: string;
         categoryId: string;
-    }>
+    }
 };
 
 const SearchPage = async ({
     searchParams
 }: SearchPageProps) => {
-    const { userId } = await auth();
+    const { userId } = auth();
 
     if (!userId) {
         return redirect("/");
     }
 
-    const { title, categoryId } = await searchParams;
+    const { title, categoryId } = searchParams;
 
     const categories = await db.category.findMany({
         orderBy: {

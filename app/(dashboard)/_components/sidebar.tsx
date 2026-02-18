@@ -52,6 +52,11 @@ const adminRoutes = [
         label: "Settings",
         href: "/admin/settings",
     },
+    {
+        icon: CircleDollarSign,
+        label: "Financial",
+        href: "/admin/financial",
+    },
 ]
 
 export const Sidebar = () => {

@@ -99,6 +99,27 @@ const LessonIdPage = async ({
                     <div>
                         <Preview value={lesson.description!} />
                     </div>
+                    {!!attachments.length && (
+                        <>
+                            <Separator />
+                            <div className="p-4">
+                                <h3 className="font-semibold text-lg mb-2">Attachments</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {attachments.map((attachment) => (
+                                        <a
+                                            href={attachment.url}
+                                            target="_blank"
+                                            key={attachment.id}
+                                            className="flex items-center p-3 w-full bg-slate-100 border text-sky-700 rounded-md hover:underline"
+                                        >
+                                            <File className="h-4 w-4 mr-2 flex-shrink-0" />
+                                            <span className="line-clamp-1">{attachment.name}</span>
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

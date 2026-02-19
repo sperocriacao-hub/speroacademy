@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Layout, Compass, List, BarChart, CircleDollarSign, Settings } from "lucide-react";
+import { Layout, Compass, List, BarChart, CircleDollarSign, Settings, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const guestRoutes = [
@@ -56,6 +56,11 @@ const adminRoutes = [
         icon: CircleDollarSign,
         label: "Financial",
         href: "/admin/financial",
+    },
+    {
+        icon: Users,
+        label: "Users",
+        href: "/admin/users",
     },
 ]
 

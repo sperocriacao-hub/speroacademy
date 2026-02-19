@@ -38,6 +38,7 @@ model Course {
   thumbnail   String?
   price       Float?
   isPublished Boolean @default(false)
+  isApproved  Boolean @default(false)
 
   instructorId String
   instructor   User   @relation("CreatedCourses", fields: [instructorId], references: [id], onDelete: Cascade)

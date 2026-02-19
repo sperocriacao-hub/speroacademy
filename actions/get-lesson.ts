@@ -1,4 +1,4 @@
-import { Module, Lesson, Attachment } from "@prisma/client";
+import { Module, Lesson, Attachment, MuxData } from "@prisma/client";
 
 import { db } from "@/lib/db";
 
@@ -56,8 +56,10 @@ export const getLesson = async ({
         }
 
         let nextLesson: Lesson | null = null;
+        let previousLesson: Lesson | null = null;
         let attachments: Attachment[] = [];
 
+        // --- Next Lesson Logic ---
         const nextLessonInModule = await db.lesson.findFirst({
             where: {
                 moduleId: module.id,
@@ -101,6 +103,50 @@ export const getLesson = async ({
             }
         }
 
+        // --- Previous Lesson Logic ---
+        const previousLessonInModule = await db.lesson.findFirst({
+            where: {
+                moduleId: module.id,
+                isPublished: true,
+                position: {
+                    lt: lesson?.position,
+                },
+            },
+            orderBy: {
+                position: "desc",
+            }
+        });
+
+        if (previousLessonInModule) {
+            previousLesson = previousLessonInModule;
+        } else {
+            const previousModule = await db.module.findFirst({
+                where: {
+                    courseId: courseId,
+                    isPublished: true,
+                    position: {
+                        lt: module?.position,
+                    }
+                },
+                orderBy: {
+                    position: "desc",
+                }
+            });
+
+            if (previousModule) {
+                const previousLessonInPreviousModule = await db.lesson.findFirst({
+                    where: {
+                        moduleId: previousModule.id,
+                        isPublished: true,
+                    },
+                    orderBy: {
+                        position: "desc",
+                    }
+                });
+                previousLesson = previousLessonInPreviousModule;
+            }
+        }
+
         const userProgress = await db.userProgress.findUnique({
             where: {
                 userId_lessonId: {
@@ -110,13 +156,21 @@ export const getLesson = async ({
             }
         });
 
+        const muxData = await db.muxData.findUnique({
+            where: {
+                lessonId: lessonId,
+            }
+        });
+
         return {
             lesson,
             module,
             course,
             purchase,
+            muxData,
             attachments,
             nextLesson,
+            previousLesson,
             userProgress,
         };
     } catch (error) {
@@ -126,8 +180,10 @@ export const getLesson = async ({
             module: null,
             course: null,
             purchase: null,
+            muxData: null,
             attachments: [],
             nextLesson: null,
+            previousLesson: null,
             userProgress: null,
         }
     }

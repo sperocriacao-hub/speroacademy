@@ -1,11 +1,13 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { File } from "lucide-react";
+import { File, ArrowLeft, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 import { getLesson } from "@/actions/get-lesson";
 import { Banner } from "@/components/banner";
 import { Separator } from "@/components/ui/separator";
 import { Preview } from "@/components/preview";
+import { Button } from "@/components/ui/button";
 import { CourseEnrollButton } from "../../_components/course-enroll-button";
 
 import { VideoPlayer } from "@/components/video-player";
@@ -27,8 +29,10 @@ const LessonIdPage = async ({
         module,
         course,
         purchase,
+        muxData,
         attachments,
         nextLesson,
+        previousLesson,
         userProgress
     } = await getLesson({
         userId,
@@ -53,16 +57,37 @@ const LessonIdPage = async ({
                         courseId={courseId}
                         moduleId={module.id}
                         nextLessonId={nextLesson?.id}
-                        playbackId={lesson.videoUrl!}
+                        playbackId={muxData?.playbackId || ""}
                         isLocked={isLocked}
                         completeOnEnd={completeOnEnd}
                     />
                 </div>
                 <div>
-                    <div className="p-4 flex flex-col md:flex-row items-center justify-between">
-                        <h2 className="text-2xl font-semibold mb-2">
-                            {lesson.title}
-                        </h2>
+                    <div className="p-4 flex flex-col md:flex-row items-center justify-between border-b">
+                        <div className="flex flex-col gap-y-2">
+                            <h2 className="text-2xl font-semibold">
+                                {lesson.title}
+                            </h2>
+                            <div className="flex items-center gap-x-2">
+                                {previousLesson && (
+                                    <Link href={`/courses/${courseId}/lessons/${previousLesson.id}`}>
+                                        <Button variant="outline" size="sm">
+                                            <ArrowLeft className="h-4 w-4 mr-2" />
+                                            Previous
+                                        </Button>
+                                    </Link>
+                                )}
+                                {nextLesson && (
+                                    <Link href={`/courses/${courseId}/lessons/${nextLesson.id}`}>
+                                        <Button variant="outline" size="sm">
+                                            Next
+                                            <ArrowRight className="h-4 w-4 ml-2" />
+                                        </Button>
+                                    </Link>
+                                )}
+                            </div>
+                        </div>
+
                         {!purchase && (
                             <CourseEnrollButton
                                 courseId={courseId}

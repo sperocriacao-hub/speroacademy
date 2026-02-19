@@ -5,13 +5,10 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Loader2, Lock } from "lucide-react";
-import ReactPlayer from "react-player";
+import MuxPlayer from "@mux/mux-player-react";
 
 import { cn } from "@/lib/utils";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Player = ReactPlayer as any;
 
 interface VideoPlayerProps {
     playbackId: string;
@@ -77,23 +74,15 @@ export const VideoPlayer = ({
                 </div>
             )}
             {!isLocked && (
-                <Player
-                    url={playbackId}
+                <MuxPlayer
+                    playbackId={playbackId}
+                    title={title}
                     className={cn(
                         !isReady && "hidden"
                     )}
-                    width="100%"
-                    height="100%"
-                    controls
-                    onReady={() => setIsReady(true)}
+                    onCanPlay={() => setIsReady(true)}
                     onEnded={onEnd}
-                    config={{
-                        file: {
-                            attributes: {
-                                controlsList: 'nodownload'
-                            }
-                        }
-                    }}
+                    autoPlay
                 />
             )}
         </div>

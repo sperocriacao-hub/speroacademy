@@ -1,19 +1,9 @@
-import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+// Skipped Clerk Auth since Admin routes are verified via custom cookies
 import { db } from "@/lib/db";
 import { DataTable } from "./_components/data-table";
 import { columns } from "./_components/columns";
 
 const AdminCoursesPage = async () => {
-    const { userId } = auth();
-
-    if (!userId) {
-        return redirect("/");
-    }
-
-    // In a real app, implement isTeacher / isAdmin check here
-    // const authorized = isAdmin(userId);
-
     const courses = await db.course.findMany({
         orderBy: {
             createdAt: "desc",

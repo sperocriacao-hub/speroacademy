@@ -20,6 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
+import { useTranslations } from "next-intl";
 
 interface LessonsFormProps {
     initialData: Module & { lessons: Lesson[] };
@@ -42,6 +43,9 @@ export const LessonsForm = ({
     const toggleCreating = () => setIsCreating((current) => !current);
 
     const router = useRouter();
+
+    const tc = useTranslations("CourseSetup");
+    const t = useTranslations("ChapterSetup");
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -68,14 +72,14 @@ export const LessonsForm = ({
     return (
         <div className="mt-6 border bg-slate-100 rounded-md p-4">
             <div className="font-medium flex items-center justify-between">
-                Module lessons
+                {t("chapterLessons")}
                 <Button onClick={toggleCreating} variant="ghost">
                     {isCreating ? (
-                        <>Cancel</>
+                        <>{t("cancel")}</>
                     ) : (
                         <>
                             <PlusCircle className="h-4 w-4 mr-2" />
-                            Add a lesson
+                            {t("addLesson")}
                         </>
                     )}
                 </Button>
@@ -95,7 +99,7 @@ export const LessonsForm = ({
                                     <FormControl>
                                         <Input
                                             disabled={isSubmitting}
-                                            placeholder="e.g. 'Introduction to the module'"
+                                            placeholder={t("lessonPlaceholder")}
                                             {...field}
                                         />
                                     </FormControl>
@@ -107,7 +111,7 @@ export const LessonsForm = ({
                             disabled={!isValid || isSubmitting}
                             type="submit"
                         >
-                            Create
+                            {tc("create")}
                         </Button>
                     </form>
                 </Form>
@@ -117,12 +121,12 @@ export const LessonsForm = ({
                     "text-sm mt-2",
                     !lessons.length && "text-slate-500 italic"
                 )}>
-                    {!lessons.length && "No lessons"}
+                    {!lessons.length && t("noLessons")}
                     <div className="flex flex-col gap-y-2 mt-2">
                         {lessons.map((lesson) => (
                             <div key={lesson.id} className="flex items-center gap-x-2 bg-slate-200 border-slate-200 border text-slate-700 rounded-md mb-2 text-sm p-2">
                                 {lesson.title}
-                                {lesson.isPublished ? <span className="text-xs bg-sky-700 text-white px-2 py-1 rounded-full ml-auto">Published</span> : <span className="text-xs bg-slate-500 text-white px-2 py-1 rounded-full ml-auto">Draft</span>}
+                                {lesson.isPublished ? <span className="text-xs bg-sky-700 text-white px-2 py-1 rounded-full ml-auto">{tc("published")}</span> : <span className="text-xs bg-slate-500 text-white px-2 py-1 rounded-full ml-auto">{tc("draft")}</span>}
                             </div>
                         ))}
                     </div>

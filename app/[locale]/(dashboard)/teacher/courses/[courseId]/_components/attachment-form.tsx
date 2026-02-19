@@ -11,6 +11,7 @@ import { Attachment, Course } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 
 interface AttachmentFormProps {
     initialData: Course & { attachments: Attachment[] };
@@ -31,6 +32,8 @@ export const AttachmentForm = ({
     const toggleEdit = () => setIsEditing((current) => !current);
 
     const router = useRouter();
+
+    const t = useTranslations("CourseSetup");
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
@@ -60,16 +63,16 @@ export const AttachmentForm = ({
         <Card className="mt-6 border shadow-sm">
             <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
                 <CardTitle className="text-base font-medium">
-                    Course attachments
+                    {t("resourcesAndAttachments")}
                 </CardTitle>
                 <Button onClick={toggleEdit} variant="ghost" size="sm">
                     {isEditing && (
-                        <>Cancel</>
+                        <>{t("cancel")}</>
                     )}
                     {!isEditing && (
                         <>
                             <PlusCircle className="h-4 w-4 mr-2" />
-                            Add a file
+                            {t("addAttachment")}
                         </>
                     )}
                 </Button>
@@ -86,7 +89,7 @@ export const AttachmentForm = ({
                             }}
                         />
                         <div className="text-xs text-muted-foreground mt-4">
-                            Add anything your students might need to complete the course.
+                            {t("attachmentDesc")}
                         </div>
                     </div>
                 )}
@@ -94,7 +97,7 @@ export const AttachmentForm = ({
                     <>
                         {initialData.attachments.length === 0 && (
                             <p className="text-sm text-slate-500 italic">
-                                No attachments yet
+                                {t("noAttachments")}
                             </p>
                         )}
                         {initialData.attachments.length > 0 && (

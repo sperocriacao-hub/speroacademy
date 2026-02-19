@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 
 interface DescriptionFormProps {
     initialData: {
@@ -43,6 +44,8 @@ export const DescriptionForm = ({
     const toggleEdit = () => setIsEditing((current) => !current);
 
     const router = useRouter();
+
+    const t = useTranslations("CourseSetup");
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -68,15 +71,15 @@ export const DescriptionForm = ({
         <Card className="mt-6 border shadow-sm">
             <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
                 <CardTitle className="text-base font-medium">
-                    Course description
+                    {t("courseDescription")}
                 </CardTitle>
                 <Button onClick={toggleEdit} variant="ghost" size="sm">
                     {isEditing ? (
-                        <>Cancel</>
+                        <>{t("cancel")}</>
                     ) : (
                         <>
                             <Pencil className="h-4 w-4 mr-2" />
-                            Edit
+                            {t("edit")}
                         </>
                     )}
                 </Button>
@@ -87,7 +90,7 @@ export const DescriptionForm = ({
                         "text-sm",
                         !initialData.description && "text-slate-500 italic"
                     )}>
-                        {initialData.description || "No description"}
+                        {initialData.description || t("noDescription")}
                     </p>
                 )}
                 {isEditing && (
@@ -117,7 +120,7 @@ export const DescriptionForm = ({
                                     disabled={!isValid || isSubmitting}
                                     type="submit"
                                 >
-                                    Save
+                                    {t("save")}
                                 </Button>
                             </div>
                         </form>

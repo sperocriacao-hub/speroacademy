@@ -5,8 +5,8 @@ import { Trash } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 interface ModuleActionsProps {
     disabled: boolean;
@@ -23,6 +23,7 @@ export const ModuleActions = ({
 }: ModuleActionsProps) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+    const tc = useTranslations("CourseSetup");
 
     const onClick = async () => {
         try {
@@ -67,7 +68,7 @@ export const ModuleActions = ({
                 variant="outline"
                 size="sm"
             >
-                {isPublished ? "Unpublish" : "Publish"}
+                {isPublished ? tc("unpublish") : tc("publish")}
             </Button>
             <Button
                 onClick={onDelete}

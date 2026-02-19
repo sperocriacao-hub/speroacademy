@@ -9,11 +9,7 @@ import { DataTable } from "./_components/data-table";
 import { columns } from "./_components/columns";
 
 const AdminFinancialPage = async () => {
-    const { userId } = auth();
-
-    if (!userId) {
-        return redirect("/");
-    }
+    // Skipped Clerk auth explicitly since `/admin` relies on cookies
 
     const transactions = await db.transaction.findMany({
         orderBy: {

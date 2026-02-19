@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ConfirmModal } from "@/components/modals/confirm-modal";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
+import { useTranslations } from "next-intl";
 
 interface ActionsProps {
     disabled: boolean;
@@ -24,6 +25,7 @@ export const Actions = ({
     const router = useRouter();
     const confetti = useConfettiStore();
     const [isLoading, setIsLoading] = useState(false);
+    const t = useTranslations("CourseSetup");
 
     const onClick = async () => {
         try {
@@ -70,7 +72,7 @@ export const Actions = ({
                 variant="outline"
                 size="sm"
             >
-                {isPublished ? "Unpublish" : "Publish"}
+                {isPublished ? t("unpublish") : t("publish")}
             </Button>
             <ConfirmModal onConfirm={onDelete}>
                 <Button size="sm" disabled={isLoading}>

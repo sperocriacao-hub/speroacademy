@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatPrice } from "@/lib/format";
+import { useTranslations } from "next-intl";
 
 interface PriceFormProps {
     initialData: {
@@ -42,6 +43,8 @@ export const PriceForm = ({
     const toggleEdit = () => setIsEditing((current) => !current);
 
     const router = useRouter();
+
+    const t = useTranslations("CourseSetup");
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const form = useForm<any>({
@@ -68,15 +71,15 @@ export const PriceForm = ({
         <Card className="mt-6 border shadow-sm">
             <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
                 <CardTitle className="text-base font-medium">
-                    Course price
+                    {t("coursePrice")}
                 </CardTitle>
                 <Button onClick={toggleEdit} variant="ghost" size="sm">
                     {isEditing ? (
-                        <>Cancel</>
+                        <>{t("cancel")}</>
                     ) : (
                         <>
                             <Pencil className="h-4 w-4 mr-2" />
-                            Edit
+                            {t("edit")}
                         </>
                     )}
                 </Button>
@@ -87,7 +90,9 @@ export const PriceForm = ({
                         "text-sm",
                         !initialData.price && "text-slate-500 italic"
                     )}>
-                        {initialData.price ? formatPrice(initialData.price) : "No price"}
+                        {initialData.price !== null && initialData.price !== undefined
+                            ? formatPrice(initialData.price)
+                            : t("noPrice")}
                     </p>
                 )}
                 {isEditing && (
@@ -106,7 +111,7 @@ export const PriceForm = ({
                                                 type="number"
                                                 step="0.01"
                                                 disabled={isSubmitting}
-                                                placeholder="Set a price for your course"
+                                                placeholder={t("coursePriceHelp")}
                                                 {...field}
                                             />
                                         </FormControl>
@@ -119,7 +124,7 @@ export const PriceForm = ({
                                     disabled={!isValid || isSubmitting}
                                     type="submit"
                                 >
-                                    Save
+                                    {t("save")}
                                 </Button>
                             </div>
                         </form>

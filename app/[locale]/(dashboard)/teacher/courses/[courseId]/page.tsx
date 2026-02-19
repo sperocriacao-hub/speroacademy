@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { CircleDollarSign, File, LayoutDashboard, ListChecks } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 import { db } from "@/lib/db";
 import { TitleForm } from "./_components/title-form";
@@ -24,6 +25,8 @@ const CourseIdPage = async ({
     if (!userId) {
         return redirect("/");
     }
+
+    const t = await getTranslations("CourseSetup");
 
     const { courseId } = params;
 
@@ -82,10 +85,10 @@ const CourseIdPage = async ({
                 <div className="flex items-center justify-between">
                     <div className="flex flex-col gap-y-2">
                         <h1 className="text-2xl font-medium">
-                            Course Setup
+                            {t("title")}
                         </h1>
                         <span className="text-sm text-slate-700">
-                            Complete all fields {completionText}
+                            {t("subtitle")} {completionText}
                         </span>
                         {/* Add Visual Progress Bar here if desired, or keep clear text */}
                     </div>
@@ -103,7 +106,7 @@ const CourseIdPage = async ({
                                 <LayoutDashboard className="h-5 w-5 text-sky-700" />
                             </div>
                             <h2 className="text-xl font-medium">
-                                Customize your course
+                                {t("customizeCourse")}
                             </h2>
                         </div>
                         <TitleForm
@@ -134,7 +137,7 @@ const CourseIdPage = async ({
                                     <ListChecks className="h-5 w-5 text-sky-700" />
                                 </div>
                                 <h2 className="text-xl font-medium">
-                                    Course modules
+                                    {t("courseChapters")}
                                 </h2>
                             </div>
                             <ModulesForm
@@ -148,7 +151,7 @@ const CourseIdPage = async ({
                                     <CircleDollarSign className="h-5 w-5 text-sky-700" />
                                 </div>
                                 <h2 className="text-xl font-medium">
-                                    Sell your course
+                                    {t("sellCourse")}
                                 </h2>
                             </div>
                             <PriceForm
@@ -162,7 +165,7 @@ const CourseIdPage = async ({
                                     <File className="h-5 w-5 text-sky-700" />
                                 </div>
                                 <h2 className="text-xl font-medium">
-                                    Resources & Attachments
+                                    {t("resourcesAndAttachments")}
                                 </h2>
                             </div>
                             <AttachmentForm

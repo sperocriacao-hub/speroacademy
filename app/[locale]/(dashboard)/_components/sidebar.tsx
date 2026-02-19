@@ -4,70 +4,77 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Layout, Compass, List, BarChart, CircleDollarSign, Settings, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const guestRoutes = [
-    {
-        icon: Layout,
-        label: "Dashboard",
-        href: "/dashboard",
-    },
-    {
-        icon: Compass,
-        label: "Browse",
-        href: "/search",
-    },
-];
-
-const teacherRoutes = [
-    {
-        icon: List,
-        label: "Courses",
-        href: "/teacher/courses",
-    },
-    {
-        icon: BarChart,
-        label: "Analytics",
-        href: "/teacher/analytics",
-    },
-    {
-        icon: CircleDollarSign,
-        label: "Wallet",
-        href: "/teacher/wallet",
-    },
-]
-
-const adminRoutes = [
-    {
-        icon: List,
-        label: "Courses",
-        href: "/admin/courses",
-    },
-    {
-        icon: BarChart,
-        label: "Analytics",
-        href: "/admin/analytics",
-    },
-    {
-        icon: Settings,
-        label: "Settings",
-        href: "/admin/settings",
-    },
-    {
-        icon: CircleDollarSign,
-        label: "Financial",
-        href: "/admin/financial",
-    },
-    {
-        icon: Users,
-        label: "Users",
-        href: "/admin/users",
-    },
-]
+import { useTranslations } from "next-intl";
 
 export const Sidebar = () => {
     const pathname = usePathname();
     const isTeacherPage = pathname?.includes("/teacher");
     const isAdminPage = pathname?.includes("/admin");
+    const t = useTranslations("Sidebar");
+
+    const guestRoutes = [
+        {
+            icon: Layout,
+            label: t("dashboard"),
+            href: "/dashboard",
+        },
+        {
+            icon: Compass,
+            label: t("browse"),
+            href: "/search",
+        },
+    ];
+
+    const teacherRoutes = [
+        {
+            icon: List,
+            label: t("courses"),
+            href: "/teacher/courses",
+        },
+        {
+            icon: BarChart,
+            label: t("analytics"),
+            href: "/teacher/analytics",
+        },
+        {
+            icon: CircleDollarSign,
+            label: t("wallet"),
+            href: "/teacher/wallet",
+        },
+    ];
+
+    const adminRoutes = [
+        {
+            icon: List,
+            label: "Cursos",
+            href: "/admin/courses",
+        },
+        {
+            icon: List,
+            label: "Categorias",
+            href: "/admin/categories",
+        },
+        {
+            icon: BarChart,
+            label: "Analytics",
+            href: "/admin/analytics",
+        },
+        {
+            icon: Settings,
+            label: "Settings",
+            href: "/admin/settings",
+        },
+        {
+            icon: CircleDollarSign,
+            label: "Financial",
+            href: "/admin/financial",
+        },
+        {
+            icon: Users,
+            label: "Users",
+            href: "/admin/users",
+        },
+    ];
 
     const routes = isTeacherPage ? teacherRoutes : isAdminPage ? adminRoutes : guestRoutes;
 

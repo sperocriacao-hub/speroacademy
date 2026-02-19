@@ -22,6 +22,7 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useTranslations } from "next-intl";
 
 interface ModulesFormProps {
     initialData: Course & { modules: Module[] };
@@ -52,6 +53,8 @@ export const ModulesForm = ({
 
     const { isSubmitting, isValid } = form.formState;
 
+    const t = useTranslations("CourseSetup");
+
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             await axios.post(`/api/courses/${courseId}/modules`, values);
@@ -69,15 +72,15 @@ export const ModulesForm = ({
         <Card className="mt-6 border shadow-sm">
             <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
                 <CardTitle className="text-base font-medium">
-                    Course modules
+                    {t("courseChapters")}
                 </CardTitle>
                 <Button onClick={toggleCreating} variant="ghost" size="sm">
                     {isCreating ? (
-                        <>Cancel</>
+                        <>{t("cancel")}</>
                     ) : (
                         <>
                             <PlusCircle className="h-4 w-4 mr-2" />
-                            Add a module
+                            {t("addChapter")}
                         </>
                     )}
                 </Button>
@@ -97,7 +100,7 @@ export const ModulesForm = ({
                                         <FormControl>
                                             <Input
                                                 disabled={isSubmitting}
-                                                placeholder="e.g. 'Introduction to the course'"
+                                                placeholder={t("chapterPlaceholder")}
                                                 {...field}
                                             />
                                         </FormControl>
@@ -109,7 +112,7 @@ export const ModulesForm = ({
                                 disabled={!isValid || isSubmitting}
                                 type="submit"
                             >
-                                Create
+                                {t("create")}
                             </Button>
                         </form>
                     </Form>
@@ -119,7 +122,7 @@ export const ModulesForm = ({
                         "text-sm",
                         !modules.length && "text-slate-500 italic"
                     )}>
-                        {!modules.length && "No modules"}
+                        {!modules.length && t("noChapters")}
                         <div className="flex flex-col gap-y-2">
                             {modules.map((module) => (
                                 <div key={module.id} className="flex items-center gap-x-2 bg-slate-100 border text-slate-700 rounded-md p-3">
@@ -131,10 +134,10 @@ export const ModulesForm = ({
                                             "bg-slate-500",
                                             module.isPublished && "bg-sky-700"
                                         )}>
-                                            {module.isPublished ? "Published" : "Draft"}
+                                            {module.isPublished ? t("published") : t("draft")}
                                         </Badge>
-                                        <div onClick={() => router.push(`/teacher/courses/${courseId}/modules/${module.id}`)} className="cursor-pointer hover:underline text-sky-700 text-xs ml-4">
-                                            Edit
+                                        <div onClick={() => router.push(`/pt-BR/teacher/courses/${courseId}/modules/${module.id}`)} className="cursor-pointer hover:underline text-sky-700 text-xs ml-4">
+                                            {t("edit")}
                                         </div>
                                     </div>
                                 </div>

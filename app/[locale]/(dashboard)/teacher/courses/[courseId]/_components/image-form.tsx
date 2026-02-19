@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 
 import { FileUpload } from "@/components/file-upload";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 
 interface ImageFormProps {
     initialData: {
@@ -35,10 +36,12 @@ export const ImageForm = ({
 
     const router = useRouter();
 
+    const t = useTranslations("CourseSetup");
+
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             await axios.patch(`/api/courses/${courseId}`, values);
-            toast.success("Course updated");
+            toast.success("Course updated"); // Keep toast as is for now or translate if desired
             toggleEdit();
             router.refresh();
         } catch {
@@ -50,22 +53,22 @@ export const ImageForm = ({
         <Card className="mt-6 border shadow-sm">
             <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
                 <CardTitle className="text-base font-medium">
-                    Course image
+                    {t("courseImage")}
                 </CardTitle>
                 <Button onClick={toggleEdit} variant="ghost" size="sm">
                     {isEditing && (
-                        <>Cancel</>
+                        <>{t("cancel")}</>
                     )}
                     {!isEditing && !initialData.thumbnail && (
                         <>
                             <PlusCircle className="h-4 w-4 mr-2" />
-                            Add an image
+                            {t("addAnImage")}
                         </>
                     )}
                     {!isEditing && initialData.thumbnail && (
                         <>
                             <Pencil className="h-4 w-4 mr-2" />
-                            Edit
+                            {t("edit")}
                         </>
                     )}
                 </Button>
@@ -98,7 +101,7 @@ export const ImageForm = ({
                             }}
                         />
                         <div className="text-xs text-muted-foreground mt-4">
-                            16:9 aspect ratio recommended
+                            {t("imageAspectReq")}
                         </div>
                     </div>
                 )}

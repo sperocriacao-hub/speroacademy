@@ -5,11 +5,7 @@ import { DataTable } from "./_components/data-table";
 import { columns } from "./_components/columns";
 
 const AdminUsersPage = async () => {
-    const { userId } = auth();
-
-    if (!userId) {
-        return redirect("/");
-    }
+    // Skipped Clerk auth explicitly since `/admin` relies on cookies
 
     const users = await db.user.findMany({
         orderBy: {

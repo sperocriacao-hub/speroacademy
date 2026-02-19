@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 interface ModuleTitleFormProps {
     initialData: {
@@ -44,6 +45,9 @@ export const ModuleTitleForm = ({
 
     const router = useRouter();
 
+    const t = useTranslations("ChapterSetup");
+    const tc = useTranslations("CourseSetup");
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: initialData,
@@ -65,14 +69,14 @@ export const ModuleTitleForm = ({
     return (
         <div className="mt-6 border bg-slate-100 rounded-md p-4">
             <div className="font-medium flex items-center justify-between">
-                Module title
+                {t("chapterTitle")}
                 <Button onClick={toggleEdit} variant="ghost">
                     {isEditing ? (
-                        <>Cancel</>
+                        <>{t("cancel")}</>
                     ) : (
                         <>
                             <Pencil className="h-4 w-4 mr-2" />
-                            Edit title
+                            {t("edit")}
                         </>
                     )}
                 </Button>
@@ -96,7 +100,7 @@ export const ModuleTitleForm = ({
                                     <FormControl>
                                         <Input
                                             disabled={isSubmitting}
-                                            placeholder="e.g. 'Introduction to the course'"
+                                            placeholder={tc("chapterPlaceholder")}
                                             {...field}
                                         />
                                     </FormControl>
@@ -109,7 +113,7 @@ export const ModuleTitleForm = ({
                                 disabled={!isValid || isSubmitting}
                                 type="submit"
                             >
-                                Save
+                                {t("save")}
                             </Button>
                         </div>
                     </form>

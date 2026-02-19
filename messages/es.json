@@ -84,7 +84,14 @@
         "create": "Crear",
         "noChapters": "Sin capítulos",
         "published": "Publicado",
-        "draft": "Borrador"
+        "draft": "Borrador",
+        "courseWorkload": "Carga Horaria (en horas)",
+        "workloadPlaceholder": "ej: '40'",
+        "noWorkload": "Sin carga horaria definida",
+        "hours": "horas",
+        "instructorBio": "Biografía del Instructor",
+        "bioPlaceholder": "ej: 'Profesor de Harvard...'",
+        "noBio": "Sin biografía definida"
     },
     "Sidebar": {
         "dashboard": "Panel",

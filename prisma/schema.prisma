@@ -40,6 +40,9 @@ model Course {
   isPublished Boolean @default(false)
   isApproved  Boolean @default(false)
 
+  workload    Int?    // Represents the amount of hours of course
+  instructorBio String? @db.Text
+
   instructorId String
   instructor   User   @relation("CreatedCourses", fields: [instructorId], references: [id], onDelete: Cascade)
 
@@ -233,6 +236,10 @@ model SystemSettings {
   id                String   @id @default(uuid())
   platformFeePercent Float    @default(10.0) // Percentage (e.g., 10.0 for 10%)
   
+  heroTitle         String   @default("Master In-Demand Skills with Spero Academy")
+  heroSubtitle      String   @db.Text @default("Whether you want to learn programming, design, or business, we connect you with expert instructors worldwide.")
+  heroImage         String?  @db.Text
+
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 }

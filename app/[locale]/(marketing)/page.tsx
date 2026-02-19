@@ -1,25 +1,12 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, CheckCircle, Video, Wallet } from "lucide-react";
-import { Link } from "@/navigation";
-import { useAuth } from "@clerk/nextjs";
-import { useRouter } from "@/navigation";
-import { useTranslations } from "next-intl";
+import { BookOpen, CheckCircle, Video, Wallet } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import Image from "next/image";
+import { db } from "@/lib/db";
+import { MarketingHeroButtons } from "./_components/marketing-hero-buttons";
 
-export default function MarketingPage() {
-    const { isSignedIn } = useAuth();
-    const router = useRouter();
-    const t = useTranslations("Marketing");
-
-    const onGetStarted = () => {
-        if (isSignedIn) {
-            router.push("/search");
-        } else {
-            router.push("/sign-up");
-        }
-    }
+export default async function MarketingPage() {
+    const t = await getTranslations("Marketing");
+    const settings = await db.systemSettings.findFirst();
 
     return (
         <div className="flex flex-col min-h-[calc(100vh-80px)]">
@@ -33,43 +20,43 @@ export default function MarketingPage() {
                     {t("heroBadge")}
                 </div>
 
-                <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-6 max-w-4xl">
-                    {t("heroTitle1")}{" "}
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-indigo-600">
-                        {t("heroTitleHighlight")}
-                    </span>
+                <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-6 max-w-4xl relative z-10">
+                    {settings?.heroTitle || t("heroTitle1") + " " + t("heroTitleHighlight")}
                 </h1>
 
-                <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-                    {t("heroSubtitle")}
+                <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed relative z-10">
+                    {settings?.heroSubtitle || t("heroSubtitle")}
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-center gap-4">
-                    <Button onClick={onGetStarted} size="lg" className="h-14 px-8 text-lg rounded-full shadow-lg hover:shadow-xl transition-all font-semibold bg-sky-600 hover:bg-sky-700">
-                        {t("buttonStartLearning")}
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                    <Link href="/pricing">
-                        <Button variant="outline" size="lg" className="h-14 px-8 text-lg rounded-full font-medium border-slate-300 text-slate-700 hover:bg-slate-50">
-                            {t("buttonInstructor")}
-                        </Button>
-                    </Link>
-                </div>
+                <MarketingHeroButtons />
 
-                <div className="mt-16 flex items-center justify-center gap-8 text-slate-500 text-sm font-medium">
-                    <div className="flex items-center gap-2">
-                        <CheckCircle className="h-4 w-4 text-emerald-500" />
-                        {t("featureLifetime")}
+                {settings?.heroImage && (
+                    <div className="mt-16 w-full max-w-5xl mx-auto relative aspect-video rounded-xl overflow-hidden shadow-2xl border border-slate-200">
+                        <Image
+                            src={settings.heroImage}
+                            alt="Hero Image"
+                            fill
+                            className="object-cover"
+                        />
                     </div>
-                    <div className="flex items-center gap-2">
-                        <CheckCircle className="h-4 w-4 text-emerald-500" />
-                        {t("featureHD")}
+                )}
+
+                {!settings?.heroImage && (
+                    <div className="mt-16 flex items-center justify-center gap-8 text-slate-500 text-sm font-medium">
+                        <div className="flex items-center gap-2">
+                            <CheckCircle className="h-4 w-4 text-emerald-500" />
+                            {t("featureLifetime")}
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <CheckCircle className="h-4 w-4 text-emerald-500" />
+                            {t("featureHD")}
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <CheckCircle className="h-4 w-4 text-emerald-500" />
+                            {t("featureExpert")}
+                        </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <CheckCircle className="h-4 w-4 text-emerald-500" />
-                        {t("featureExpert")}
-                    </div>
-                </div>
+                )}
             </section>
 
             {/* Features Section */}

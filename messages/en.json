@@ -84,7 +84,14 @@
         "create": "Create",
         "noChapters": "No chapters",
         "published": "Published",
-        "draft": "Draft"
+        "draft": "Draft",
+        "courseWorkload": "Course Workload (hours)",
+        "workloadPlaceholder": "e.g. '40'",
+        "noWorkload": "No workload defined",
+        "hours": "hours",
+        "instructorBio": "Instructor Biography",
+        "bioPlaceholder": "e.g. 'Harvard Professor...'",
+        "noBio": "No biography defined"
     },
     "Sidebar": {
         "dashboard": "Dashboard",

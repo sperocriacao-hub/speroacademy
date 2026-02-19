@@ -65,6 +65,11 @@ export const Sidebar = () => {
             href: "/admin/settings",
         },
         {
+            icon: Compass,
+            label: "Landing Page",
+            href: "/admin/landing-page",
+        },
+        {
             icon: CircleDollarSign,
             label: "Financial",
             href: "/admin/financial",

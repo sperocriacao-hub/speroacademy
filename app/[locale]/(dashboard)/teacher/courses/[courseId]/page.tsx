@@ -11,6 +11,8 @@ import { CategoryForm } from "./_components/category-form";
 import { PriceForm } from "./_components/price-form";
 import { AttachmentForm } from "./_components/attachment-form";
 import { ModulesForm } from "./_components/modules-form";
+import { WorkloadForm } from "./_components/workload-form";
+import { BioForm } from "./_components/bio-form";
 import { Banner } from "@/components/banner";
 import { Actions } from "./_components/actions";
 import { Progress } from "@/components/ui/progress";
@@ -128,6 +130,14 @@ const CourseIdPage = async ({
                                 label: category.name,
                                 value: category.id,
                             }))}
+                        />
+                        <WorkloadForm
+                            initialData={course}
+                            courseId={course.id}
+                        />
+                        <BioForm
+                            initialData={course}
+                            courseId={course.id}
                         />
                     </div>
                     <div className="space-y-6">

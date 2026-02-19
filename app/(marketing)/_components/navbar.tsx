@@ -17,6 +17,11 @@ export const Navbar = () => {
                 </div>
 
                 <div className="flex items-center justify-between w-full md:w-auto space-x-4">
+                    <div className="hidden md:block">
+                        <Button size="sm" variant="ghost" asChild>
+                            <Link href="/pricing">Pricing</Link>
+                        </Button>
+                    </div>
                     <SignedOut>
                         <Button size="sm" variant="outline" asChild>
                             <Link href="/sign-in">Login</Link>

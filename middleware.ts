@@ -70,6 +70,10 @@ export default clerkMiddleware((auth, request) => {
         auth().protect();
     }
 
+    if (pathname.startsWith('/api')) {
+        return NextResponse.next();
+    }
+
     // 2. Return the next-intl middleware response to handle locale routing
     return intlMiddleware(request);
 });

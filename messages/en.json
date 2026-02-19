@@ -1,0 +1,51 @@
+{
+    "Navbar": {
+        "title": "Spero Academy",
+        "login": "Login",
+        "getStarted": "Get Started",
+        "dashboard": "Dashboard",
+        "pricing": "Pricing"
+    },
+    "Marketing": {
+        "heroBadge": "Transforming Education for Everyone",
+        "heroTitle1": "Master In-Demand Skills with",
+        "heroTitleHighlight": "Spero Academy",
+        "heroSubtitle": "Whether you want to learn programming, design, or business, we connect you with expert instructors worldwide.",
+        "buttonStartLearning": "Start Learning Today",
+        "buttonInstructor": "Become an Instructor",
+        "featureLifetime": "Lifetime Access",
+        "featureHD": "HD Quality Videos",
+        "featureExpert": "Expert Instructors",
+        "whyChoose": "Why choose Spero Academy?",
+        "whyChooseSubtitle": "We provide the best tools for both students to learn efficiently and instructors to manage their courses seamlessly.",
+        "feat1Title": "Premium Streaming",
+        "feat1Desc": "Powered by Mux, experience flawless adaptive HTTP live streaming. No buffering, no waiting, just learning.",
+        "feat2Title": "Organized Curriculum",
+        "feat2Desc": "Structured chapters with progress tracking, attachments, and clear milestones to keep you motivated.",
+        "feat3Title": "For Instructors",
+        "feat3Desc": "Integrated Stripe Connect for automatic payouts in multiple currencies, deep analytics, and easy course building."
+    },
+    "Pricing": {
+        "title": "Simple, Transparent Pricing",
+        "subtitle": "Whether you're here to learn a new skill or share your expertise with the world, our pricing is designed to be fair and straightforward.",
+        "studentTitle": "For Students",
+        "studentSubtitle": "Pay only for what you learn. No hidden subscription fees.",
+        "studentPrice": "Pay-per-course",
+        "studentFeat1": "Lifetime access to purchased courses",
+        "studentFeat2": "Premium video streaming with Mux",
+        "studentFeat3": "Downloadable attachments & resources",
+        "studentFeat4": "Track your progress seamlessly",
+        "studentButton": "Browse Courses",
+        "instructorBadge": "Most Popular",
+        "instructorTitle": "For Instructors",
+        "instructorSubtitle": "Start teaching today with zero upfront costs. We only earn when you earn.",
+        "instructorPrice": "85%",
+        "instructorPriceUnit": "payout",
+        "instructorFeeNote": "15% platform fee per transaction",
+        "instructorFeat1": "Free video hosting & encoding (No Mux limits)",
+        "instructorFeat2": "Automated global payments via Stripe Connect",
+        "instructorFeat3": "Detailed revenue analytics dashboard",
+        "instructorFeat4": "Build unlimited courses & modules",
+        "instructorButton": "Start Teaching"
+    }
+}

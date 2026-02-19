@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 
 import { db } from "@/lib/db";
-import { isTeacher } from "@/lib/teacher"; // Using isTeacher as Admin/Teacher check for now, can refine later
 
 export async function PATCH(
     req: Request,

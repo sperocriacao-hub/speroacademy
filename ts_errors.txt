@@ -1,0 +1,79 @@
+.next/types/app/(auth)/layout.ts(2,24): error TS2307: Cannot find module '../../../../app/(auth)/layout.js' or its corresponding type declarations.
+.next/types/app/(auth)/layout.ts(5,29): error TS2307: Cannot find module '../../../../app/(auth)/layout.js' or its corresponding type declarations.
+.next/types/app/(auth)/sign-in/[[...sign-in]]/page.ts(2,24): error TS2307: Cannot find module '../../../../../../app/(auth)/sign-in/[[...sign-in]]/page.js' or its corresponding type declarations.
+.next/types/app/(auth)/sign-in/[[...sign-in]]/page.ts(5,29): error TS2307: Cannot find module '../../../../../../app/(auth)/sign-in/[[...sign-in]]/page.js' or its corresponding type declarations.
+.next/types/app/(auth)/sign-up/[[...sign-up]]/page.ts(2,24): error TS2307: Cannot find module '../../../../../../app/(auth)/sign-up/[[...sign-up]]/page.js' or its corresponding type declarations.
+.next/types/app/(auth)/sign-up/[[...sign-up]]/page.ts(5,29): error TS2307: Cannot find module '../../../../../../app/(auth)/sign-up/[[...sign-up]]/page.js' or its corresponding type declarations.
+.next/types/app/(course)/courses/[courseId]/lessons/[lessonId]/page.ts(2,24): error TS2307: Cannot find module '../../../../../../../../app/(course)/courses/[courseId]/lessons/[lessonId]/page.js' or its corresponding type declarations.
+.next/types/app/(course)/courses/[courseId]/lessons/[lessonId]/page.ts(5,29): error TS2307: Cannot find module '../../../../../../../../app/(course)/courses/[courseId]/lessons/[lessonId]/page.js' or its corresponding type declarations.
+.next/types/app/(course)/courses/[courseId]/page.ts(2,24): error TS2307: Cannot find module '../../../../../../app/(course)/courses/[courseId]/page.js' or its corresponding type declarations.
+.next/types/app/(course)/courses/[courseId]/page.ts(5,29): error TS2307: Cannot find module '../../../../../../app/(course)/courses/[courseId]/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/admin/analytics/page.ts(2,24): error TS2307: Cannot find module '../../../../../../app/(dashboard)/admin/analytics/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/admin/analytics/page.ts(5,29): error TS2307: Cannot find module '../../../../../../app/(dashboard)/admin/analytics/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/admin/courses/page.ts(2,24): error TS2307: Cannot find module '../../../../../../app/(dashboard)/admin/courses/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/admin/courses/page.ts(5,29): error TS2307: Cannot find module '../../../../../../app/(dashboard)/admin/courses/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/admin/financial/page.ts(2,24): error TS2307: Cannot find module '../../../../../../app/(dashboard)/admin/financial/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/admin/financial/page.ts(5,29): error TS2307: Cannot find module '../../../../../../app/(dashboard)/admin/financial/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/admin/page.ts(2,24): error TS2307: Cannot find module '../../../../../app/(dashboard)/admin/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/admin/page.ts(5,29): error TS2307: Cannot find module '../../../../../app/(dashboard)/admin/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/dashboard/page.ts(2,24): error TS2307: Cannot find module '../../../../../app/(dashboard)/dashboard/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/dashboard/page.ts(5,29): error TS2307: Cannot find module '../../../../../app/(dashboard)/dashboard/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/layout.ts(2,24): error TS2307: Cannot find module '../../../../app/(dashboard)/layout.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/layout.ts(5,29): error TS2307: Cannot find module '../../../../app/(dashboard)/layout.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/search/page.ts(2,24): error TS2307: Cannot find module '../../../../../app/(dashboard)/search/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/search/page.ts(5,29): error TS2307: Cannot find module '../../../../../app/(dashboard)/search/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/teacher/analytics/page.ts(2,24): error TS2307: Cannot find module '../../../../../../app/(dashboard)/teacher/analytics/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/teacher/analytics/page.ts(5,29): error TS2307: Cannot find module '../../../../../../app/(dashboard)/teacher/analytics/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/teacher/courses/[courseId]/modules/[moduleId]/lessons/[lessonId]/page.ts(2,24): error TS2307: Cannot find module '../../../../../../../../../../../app/(dashboard)/teacher/courses/[courseId]/modules/[moduleId]/lessons/[lessonId]/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/teacher/courses/[courseId]/modules/[moduleId]/lessons/[lessonId]/page.ts(5,29): error TS2307: Cannot find module '../../../../../../../../../../../app/(dashboard)/teacher/courses/[courseId]/modules/[moduleId]/lessons/[lessonId]/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/teacher/courses/[courseId]/modules/[moduleId]/page.ts(2,24): error TS2307: Cannot find module '../../../../../../../../../app/(dashboard)/teacher/courses/[courseId]/modules/[moduleId]/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/teacher/courses/[courseId]/modules/[moduleId]/page.ts(5,29): error TS2307: Cannot find module '../../../../../../../../../app/(dashboard)/teacher/courses/[courseId]/modules/[moduleId]/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/teacher/courses/[courseId]/page.ts(2,24): error TS2307: Cannot find module '../../../../../../../app/(dashboard)/teacher/courses/[courseId]/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/teacher/courses/[courseId]/page.ts(5,29): error TS2307: Cannot find module '../../../../../../../app/(dashboard)/teacher/courses/[courseId]/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/teacher/courses/page.ts(2,24): error TS2307: Cannot find module '../../../../../../app/(dashboard)/teacher/courses/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/teacher/courses/page.ts(5,29): error TS2307: Cannot find module '../../../../../../app/(dashboard)/teacher/courses/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/teacher/create/page.ts(2,24): error TS2307: Cannot find module '../../../../../../app/(dashboard)/teacher/create/page.js' or its corresponding type declarations.
+.next/types/app/(dashboard)/teacher/create/page.ts(5,29): error TS2307: Cannot find module '../../../../../../app/(dashboard)/teacher/create/page.js' or its corresponding type declarations.
+.next/types/app/(marketing)/layout.ts(2,24): error TS2307: Cannot find module '../../../../app/(marketing)/layout.js' or its corresponding type declarations.
+.next/types/app/(marketing)/layout.ts(5,29): error TS2307: Cannot find module '../../../../app/(marketing)/layout.js' or its corresponding type declarations.
+.next/types/app/(marketing)/page.ts(2,24): error TS2307: Cannot find module '../../../../app/(marketing)/page.js' or its corresponding type declarations.
+.next/types/app/(marketing)/page.ts(5,29): error TS2307: Cannot find module '../../../../app/(marketing)/page.js' or its corresponding type declarations.
+.next/types/app/layout.ts(2,24): error TS2307: Cannot find module '../../../app/layout.js' or its corresponding type declarations.
+.next/types/app/layout.ts(5,29): error TS2307: Cannot find module '../../../app/layout.js' or its corresponding type declarations.
+_ARCHIVE_2024_02_17/scripts/seed.ts(1,9): error TS2451: Cannot redeclare block-scoped variable 'PrismaClient'.
+_ARCHIVE_2024_02_17/scripts/seed.ts(3,7): error TS2451: Cannot redeclare block-scoped variable 'database'.
+_ARCHIVE_2024_02_17/scripts/seed.ts(5,16): error TS2393: Duplicate function implementation.
+app/[locale]/(dashboard)/admin/settings/_components/settings-form.tsx(38,9): error TS2322: Type 'Resolver<{ platformFeePercent: unknown; }, any, { platformFeePercent: number; }>' is not assignable to type 'Resolver<{ platformFeePercent: number; }, any, { platformFeePercent: number; }>'.
+  Types of parameters 'options' and 'options' are incompatible.
+    Type 'ResolverOptions<{ platformFeePercent: number; }>' is not assignable to type 'ResolverOptions<{ platformFeePercent: unknown; }>'.
+      Type 'unknown' is not assignable to type 'number'.
+app/[locale]/(dashboard)/admin/settings/_components/settings-form.tsx(66,55): error TS2345: Argument of type '(values: z.infer<typeof formSchema>) => Promise<void>' is not assignable to parameter of type 'SubmitHandler<TFieldValues>'.
+  Types of parameters 'values' and 'data' are incompatible.
+    Type 'TFieldValues' is not assignable to type '{ platformFeePercent: number; }'.
+      Property 'platformFeePercent' is missing in type 'FieldValues' but required in type '{ platformFeePercent: number; }'.
+app/[locale]/(dashboard)/admin/settings/_components/settings-form.tsx(68,29): error TS2322: Type 'Control<{ platformFeePercent: number; }, any, TFieldValues>' is not assignable to type 'Control<{ platformFeePercent: number; }, any, { platformFeePercent: number; }>'.
+  The types of '_options.resolver' are incompatible between these types.
+    Type 'Resolver<{ platformFeePercent: number; }, any, TFieldValues> | undefined' is not assignable to type 'Resolver<{ platformFeePercent: number; }, any, { platformFeePercent: number; }> | undefined'.
+      Type 'Resolver<{ platformFeePercent: number; }, any, TFieldValues>' is not assignable to type 'Resolver<{ platformFeePercent: number; }, any, { platformFeePercent: number; }>'.
+        Type 'ResolverResult<{ platformFeePercent: number; }, TFieldValues> | Promise<ResolverResult<{ platformFeePercent: number; }, TFieldValues>>' is not assignable to type 'ResolverResult<{ platformFeePercent: number; }, { platformFeePercent: number; }> | Promise<ResolverResult<{ platformFeePercent: number; }, { platformFeePercent: number; }>>'.
+          Type 'ResolverSuccess<TFieldValues>' is not assignable to type 'ResolverResult<{ platformFeePercent: number; }, { platformFeePercent: number; }> | Promise<ResolverResult<{ platformFeePercent: number; }, { platformFeePercent: number; }>>'.
+            Type 'ResolverSuccess<TFieldValues>' is not assignable to type 'ResolverSuccess<{ platformFeePercent: number; }>'.
+              Type 'TFieldValues' is not assignable to type '{ platformFeePercent: number; }'.
+                Property 'platformFeePercent' is missing in type 'FieldValues' but required in type '{ platformFeePercent: number; }'.
+app/api/admin/settings/route.ts(5,27): error TS2307: Cannot find module '@/lib/teacher' or its corresponding type declarations.
+components/language-switcher.tsx(11,8): error TS2307: Cannot find module '@/components/ui/select' or its corresponding type declarations.
+i18n.ts(5,33): error TS2345: Argument of type '({ locale }: GetRequestConfigParams) => Promise<{ messages: any; }>' is not assignable to parameter of type '(params: GetRequestConfigParams) => RequestConfig | Promise<RequestConfig>'.
+  Type 'Promise<{ messages: any; }>' is not assignable to type 'RequestConfig | Promise<RequestConfig>'.
+    Type 'Promise<{ messages: any; }>' is not assignable to type 'Promise<RequestConfig>'.
+      Type '{ messages: any; }' is not assignable to type 'RequestConfig'.
+        Property 'locale' is missing in type '{ messages: any; }' but required in type '{ locale: string; }'.
+lib/payment-adapters/paypal-adapter.ts(1,20): error TS7016: Could not find a declaration file for module '@paypal/checkout-server-sdk'. '/Users/alessandromoura/.gemini/antigravity/playground/emerald-cassini/node_modules/@paypal/checkout-server-sdk/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/paypal__checkout-server-sdk` if it exists or add a new declaration (.d.ts) file containing `declare module '@paypal/checkout-server-sdk';`
+lib/payment-adapters/stripe-adapter.ts(9,5): error TS2322: Type '"2024-10-28.acacia"' is not assignable to type '"2026-01-28.clover"'.
+lib/stripe.ts(4,5): error TS2322: Type '"2024-12-18.acacia"' is not assignable to type '"2026-01-28.clover"'.
+navigation.ts(1,10): error TS2305: Module '"next-intl/navigation"' has no exported member 'createSharedPathnamesNavigation'.
+scripts/seed.ts(1,9): error TS2451: Cannot redeclare block-scoped variable 'PrismaClient'.
+scripts/seed.ts(3,7): error TS2451: Cannot redeclare block-scoped variable 'database'.
+scripts/seed.ts(5,16): error TS2393: Duplicate function implementation.
+scripts/verify-schema.ts(1,9): error TS2451: Cannot redeclare block-scoped variable 'PrismaClient'.
+scripts/verify-schema.ts(5,16): error TS2393: Duplicate function implementation.

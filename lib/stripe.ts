@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 
-export const stripe = new Stripe(process.env.STRIPE_API_KEY!, {
-    apiVersion: "2024-12-18.acacia", // Use latest or matching version
+export const stripe = new Stripe(process.env.STRIPE_API_KEY || "sk_test_mock", {
+    apiVersion: "2026-01-28.clover" as any,
     typescript: true,
 });

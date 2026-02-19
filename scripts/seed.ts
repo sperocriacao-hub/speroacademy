@@ -25,3 +25,5 @@ async function main() {
 }
 
 main();
+
+export { }; // Ensure file is treated as a module to fix TS scope errors

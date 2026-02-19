@@ -1,0 +1,51 @@
+{
+    "Navbar": {
+        "title": "Spero Academy",
+        "login": "Iniciar Sesión",
+        "getStarted": "Empezar",
+        "dashboard": "Panel",
+        "pricing": "Precios"
+    },
+    "Marketing": {
+        "heroBadge": "Transformando la Educación para Todos",
+        "heroTitle1": "Domina Habilidades Demandadas con",
+        "heroTitleHighlight": "Spero Academy",
+        "heroSubtitle": "Ya sea programación, diseño o negocios, te conectamos con instructores expertos de todo el mundo. Acceso de por vida a un catálogo en crecimiento.",
+        "buttonStartLearning": "Empieza a Aprender",
+        "buttonInstructor": "Conviértete en Instructor",
+        "featureLifetime": "Acceso de por Vida",
+        "featureHD": "Videos en Alta Definición",
+        "featureExpert": "Instructores Expertos",
+        "whyChoose": "¿Por qué elegir Spero Academy?",
+        "whyChooseSubtitle": "Proporcionamos las mejores herramientas para que los estudiantes aprendan con eficiencia y los instructores gestionen sus cursos fácilmente.",
+        "feat1Title": "Streaming Premium",
+        "feat1Desc": "Desarrollado con Mux, experimenta transmisión HD adaptativa y sin interrupciones. Solo aprendizaje continuo.",
+        "feat2Title": "Currículo Organizado",
+        "feat2Desc": "Capítulos estructurados con seguimiento del progreso, archivos adjuntos e hitos claros para mantener tu motivación.",
+        "feat3Title": "Para Instructores",
+        "feat3Desc": "Stripe Connect integrado para pagos automáticos a nivel mundial, analíticas detalladas y creación sencilla de cursos."
+    },
+    "Pricing": {
+        "title": "Precios Simples y Transparentes",
+        "subtitle": "Ya sea que estés aquí para aprender una nueva habilidad o compartir tu experiencia, nuestros precios son justos y directos.",
+        "studentTitle": "Para Estudiantes",
+        "studentSubtitle": "Paga solo por lo que aprendes. Sin suscripciones ocultas.",
+        "studentPrice": "Pago-por-curso",
+        "studentFeat1": "Acceso de por vida a los cursos comprados",
+        "studentFeat2": "Transmisión de video premium con Mux",
+        "studentFeat3": "Archivos adjuntos y recursos descargables",
+        "studentFeat4": "Sigue tu progreso sin problemas",
+        "studentButton": "Explorar Cursos",
+        "instructorBadge": "Más Popular",
+        "instructorTitle": "Para Instructores",
+        "instructorSubtitle": "Empieza a enseñar hoy sin costos iniciales. Solo ganamos cuando tú ganas.",
+        "instructorPrice": "85%",
+        "instructorPriceUnit": "de pago",
+        "instructorFeeNote": "Comisión de plataforma del 15% por transacción",
+        "instructorFeat1": "Alojamiento y codificación de video gratis (Sin límites en Mux)",
+        "instructorFeat2": "Pagos globales automatizados con Stripe Connect",
+        "instructorFeat3": "Panel detallado de análisis de ingresos",
+        "instructorFeat4": "Crea cursos y módulos ilimitados",
+        "instructorButton": "Empieza a Enseñar"
+    }
+}

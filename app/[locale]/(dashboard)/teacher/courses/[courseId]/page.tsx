@@ -64,7 +64,7 @@ const CourseIdPage = async ({
         course.title,
         course.description,
         course.thumbnail,
-        course.price,
+        course.price !== null && course.price !== undefined,
         course.categoryId,
         course.modules.some(module => module.isPublished),
     ];

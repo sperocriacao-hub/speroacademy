@@ -28,7 +28,7 @@
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.4",
     "@tanstack/react-table": "^8.21.3",
-    "@uploadthing/react": "^7.3.3",
+    "@uploadthing/react": "^6.8.0",
     "axios": "^1.13.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -49,7 +49,7 @@
     "stripe": "^20.3.1",
     "tailwind-merge": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
-    "uploadthing": "^7.7.4",
+    "uploadthing": "^6.13.3",
     "zod": "^4.3.6",
     "zustand": "^5.0.11"
   },

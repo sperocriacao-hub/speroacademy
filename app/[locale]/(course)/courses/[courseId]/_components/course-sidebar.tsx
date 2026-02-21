@@ -37,13 +37,13 @@ export const CourseSidebar = async ({
     });
 
     return (
-        <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
-            <div className="p-8 flex flex-col border-b">
-                <h1 className="font-semibold">
+        <div className="h-full border-r border-slate-800 bg-slate-900 flex flex-col overflow-y-auto">
+            <div className="p-6 flex flex-col border-b border-slate-800">
+                <h1 className="font-semibold text-white tracking-tight text-lg line-clamp-2">
                     {course.title}
                 </h1>
                 {purchase && (
-                    <div className="mt-10">
+                    <div className="mt-4">
                         <CourseProgress
                             variant="success"
                             value={progressCount}
@@ -51,23 +51,25 @@ export const CourseSidebar = async ({
                     </div>
                 )}
             </div>
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col w-full pb-20">
                 {course.modules.map((module) => (
-                    <div key={module.id} className="flex flex-col">
-                        <div className="px-4 py-2 font-medium text-sm text-slate-500 bg-slate-100/50">
+                    <div key={module.id} className="flex flex-col border-b border-slate-800 last:border-0">
+                        <div className="px-4 py-3 font-medium text-xs uppercase tracking-wider text-slate-400 bg-slate-950/50 sticky top-0 z-10 backdrop-blur-sm">
                             {module.title}
                         </div>
-                        {module.lessons.map((lesson) => (
-                            <CourseSidebarItem
-                                key={lesson.id}
-                                id={lesson.id}
-                                label={lesson.title}
-                                isCompleted={!!lesson.userProgress?.[0]?.isCompleted}
-                                courseId={course.id}
-                                moduleId={module.id}
-                                isLocked={!lesson.isFree && !purchase}
-                            />
-                        ))}
+                        <div className="flex flex-col">
+                            {module.lessons.map((lesson) => (
+                                <CourseSidebarItem
+                                    key={lesson.id}
+                                    id={lesson.id}
+                                    label={lesson.title}
+                                    isCompleted={!!lesson.userProgress?.[0]?.isCompleted}
+                                    courseId={course.id}
+                                    moduleId={module.id}
+                                    isLocked={!lesson.isFree && !purchase}
+                                />
+                            ))}
+                        </div>
                     </div>
                 ))}
             </div>

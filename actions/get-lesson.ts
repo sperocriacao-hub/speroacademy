@@ -58,6 +58,53 @@ export const getLesson = async ({
         let nextLesson: Lesson | null = null;
         let previousLesson: Lesson | null = null;
         let attachments: Attachment[] = [];
+        let isLockedByDrip = false;
+        let daysUntilUnlock = 0;
+        let isLockedByQuiz = false;
+
+        if (purchase && module.unlockDays > 0) {
+            const purchaseDate = new Date(purchase.createdAt);
+            const unlockDate = new Date(purchaseDate.getTime() + module.unlockDays * 24 * 60 * 60 * 1000);
+            const now = new Date();
+
+            if (now < unlockDate) {
+                isLockedByDrip = true;
+                daysUntilUnlock = Math.ceil((unlockDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+            }
+        }
+
+        // --- Quiz Lock Logic ---
+        if (purchase) {
+            const precedingModules = await db.module.findMany({
+                where: {
+                    courseId: courseId,
+                    position: {
+                        lt: module.position
+                    },
+                    isPublished: true,
+                },
+                include: {
+                    quiz: true
+                }
+            });
+
+            for (const prevModule of precedingModules) {
+                if (prevModule.quiz && prevModule.quiz.isPublished) {
+                    const passedAttempt = await db.quizAttempt.findFirst({
+                        where: {
+                            userId: userId,
+                            quizId: prevModule.quiz.id,
+                            isPassed: true,
+                        }
+                    });
+
+                    if (!passedAttempt) {
+                        isLockedByQuiz = true;
+                        break;
+                    }
+                }
+            }
+        }
 
         // --- Next Lesson Logic ---
         const nextLessonInModule = await db.lesson.findFirst({
@@ -162,16 +209,41 @@ export const getLesson = async ({
             }
         });
 
+        // Fetch attachments only if not locked by drip or quiz
+        if (!isLockedByDrip && !isLockedByQuiz) {
+            attachments = await db.attachment.findMany({
+                where: {
+                    courseId: courseId
+                }
+            });
+        }
+
+        const comments = await db.comment.findMany({
+            where: {
+                lessonId: lessonId,
+            },
+            include: {
+                user: true,
+            },
+            orderBy: {
+                createdAt: "desc",
+            }
+        });
+
         return {
             lesson,
             module,
             course,
             purchase,
-            muxData,
+            muxData: (isLockedByDrip || isLockedByQuiz) ? null : muxData,
             attachments,
             nextLesson,
             previousLesson,
             userProgress,
+            comments,
+            isLockedByDrip,
+            daysUntilUnlock,
+            isLockedByQuiz
         };
     } catch (error) {
         console.log("[GET_LESSON]", error);
@@ -185,6 +257,10 @@ export const getLesson = async ({
             nextLesson: null,
             previousLesson: null,
             userProgress: null,
+            comments: [],
+            isLockedByDrip: false,
+            daysUntilUnlock: 0,
+            isLockedByQuiz: false,
         }
     }
 }

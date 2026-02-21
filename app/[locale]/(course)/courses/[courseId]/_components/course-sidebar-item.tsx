@@ -40,27 +40,27 @@ export const CourseSidebarItem = ({
             onClick={onClick}
             type="button"
             className={cn(
-                "flex items-center gap-x-2 text-slate-500 text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/20",
-                isActive && "text-slate-700 bg-slate-200/20 hover:bg-slate-200/20 hover:text-slate-700",
-                isCompleted && "text-emerald-700 hover:text-emerald-700",
-                isCompleted && isActive && "bg-emerald-200/20",
+                "flex items-center gap-x-2 text-slate-400 text-sm font-medium transition-all hover:text-white hover:bg-slate-800",
+                isActive && "text-white bg-slate-800/80 hover:bg-slate-800/80",
+                isCompleted && "text-emerald-500 hover:text-emerald-400",
+                isCompleted && isActive && "bg-emerald-900/20",
             )}
         >
-            <div className="flex items-center gap-x-2 py-4">
+            <div className="flex items-center gap-x-2 py-3 px-4 w-full">
                 <Icon
-                    size={22}
+                    size={18}
                     className={cn(
-                        "text-slate-500",
-                        isActive && "text-slate-700",
-                        isCompleted && "text-emerald-700"
+                        "text-slate-500 shrink-0",
+                        isActive && "text-white",
+                        isCompleted && "text-emerald-500"
                     )}
                 />
-                {label}
+                <span className="truncate text-left">{label}</span>
             </div>
             <div className={cn(
-                "ml-auto opacity-0 border-2 border-slate-700 h-full transition-all",
+                "ml-auto opacity-0 border-2 border-white h-full transition-all shrink-0",
                 isActive && "opacity-100",
-                isCompleted && "border-emerald-700"
+                isCompleted && "border-emerald-500"
             )} />
         </button>
     )

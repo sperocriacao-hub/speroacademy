@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Layout, Compass, List, BarChart, CircleDollarSign, Settings, Users } from "lucide-react";
+import { Layout, Compass, List, BarChart, CircleDollarSign, Settings, Users, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 
@@ -40,6 +40,11 @@ export const Sidebar = () => {
             icon: CircleDollarSign,
             label: t("wallet"),
             href: "/teacher/wallet",
+        },
+        {
+            icon: MessageSquare,
+            label: "Mensagens",
+            href: "/teacher/messages",
         },
     ];
 

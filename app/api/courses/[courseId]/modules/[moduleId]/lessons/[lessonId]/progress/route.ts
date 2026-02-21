@@ -33,7 +33,44 @@ export async function PUT(
                 lessonId: paramLessonId,
                 isCompleted,
             }
-        })
+        });
+
+        // 50% completion automated trigger
+        if (isCompleted) {
+            const publishedLessonsCourse = await db.lesson.findMany({
+                where: {
+                    module: {
+                        courseId: courseId,
+                    },
+                    isPublished: true,
+                },
+                select: {
+                    id: true,
+                }
+            });
+
+            const publishedLessonIds = publishedLessonsCourse.map(lesson => lesson.id);
+
+            const completedLessons = await db.userProgress.count({
+                where: {
+                    userId,
+                    lessonId: {
+                        in: publishedLessonIds,
+                    },
+                    isCompleted: true,
+                }
+            });
+
+            const totalLessons = publishedLessonIds.length;
+            const threshold = Math.ceil(totalLessons / 2);
+
+            if (completedLessons === threshold && totalLessons > 0) {
+                // Orchestration webhook trigger
+                console.log(`[WEBHOOK TRIGGER] User ${userId} reached 50% completion on course ${courseId}. Dispatch congratulatory email.`);
+                // Here you would implement your HTTP request to Resend/SendGrid or Zapier
+                // await axios.post(process.env.AUTOMATION_WEBHOOK_URL, { userId, courseId });
+            }
+        }
 
         return NextResponse.json(userProgress);
     } catch (error) {

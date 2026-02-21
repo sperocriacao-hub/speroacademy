@@ -5,18 +5,14 @@ import Link from "next/link";
 
 import { db } from "@/lib/db";
 import { IconBadge } from "@/components/icon-badge";
-import { ModuleTitleForm } from "./_components/module-title-form";
-import { ModuleActions } from "./_components/module-actions";
-import { LessonsForm } from "./_components/lessons-form";
-import { ModuleUnlockForm } from "./_components/module-unlock-form";
-import { QuizForm } from "./_components/quiz-form";
-import { Eye, Video } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { QuizTitleForm } from "./_components/quiz-title-form";
+import { QuestionsForm } from "./_components/questions-form";
+import { QuizActions } from "./_components/quiz-actions";
 
-const ModuleIdPage = async ({
+const QuizIdPage = async ({
     params
 }: {
-    params: { courseId: string; moduleId: string }
+    params: { courseId: string; moduleId: string; locale?: string; }
 }) => {
     const { userId } = auth();
 
@@ -25,38 +21,33 @@ const ModuleIdPage = async ({
     }
 
     const { courseId, moduleId } = params;
+    const localeString = params.locale ? `/${params.locale}` : '/pt-BR';
 
-    const courseModule = await db.module.findUnique({
+    const quiz = await db.quiz.findUnique({
         where: {
-            id: moduleId,
-            courseId: courseId,
+            moduleId: moduleId,
         },
         include: {
-            lessons: {
+            questions: {
                 orderBy: {
                     position: "asc",
                 }
-            },
-            quiz: true,
+            }
         }
     });
 
-    if (!courseModule) {
-        return redirect("/");
+    if (!quiz) {
+        return redirect(`${localeString}/teacher/courses/${courseId}/modules/${moduleId}`);
     }
 
-    const t = await getTranslations("ChapterSetup");
-
     const requiredFields = [
-        courseModule.title,
-        courseModule.lessons.some(lesson => lesson.isPublished),
+        quiz.title,
+        quiz.questions.length > 0
     ];
 
     const totalFields = requiredFields.length;
     const completedFields = requiredFields.filter(Boolean).length;
-
     const completionText = `(${completedFields}/${totalFields})`;
-
     const isComplete = requiredFields.every(Boolean);
 
     return (
@@ -64,26 +55,27 @@ const ModuleIdPage = async ({
             <div className="flex items-center justify-between">
                 <div className="flex flex-col gap-y-2">
                     <Link
-                        href={`/pt-BR/teacher/courses/${courseId}`}
+                        href={`${localeString}/teacher/courses/${courseId}/modules/${moduleId}`}
                         className="flex items-center text-sm hover:opacity-75 transition mb-6"
                     >
                         <ArrowLeft className="h-4 w-4 mr-2" />
-                        {t("backToCourse")}
+                        Voltar para configurações do módulo
                     </Link>
                     <div className="flex items-center justify-between w-full">
                         <div className="flex flex-col gap-y-2">
                             <h1 className="text-2xl font-medium">
-                                {t("chapterCreation")}
+                                Configuração da Prova
                             </h1>
                             <span className="text-sm text-slate-700">
-                                {t("completeFields")} {completionText}
+                                Complete os campos obrigatórios {completionText}
                             </span>
                         </div>
-                        <ModuleActions
+                        <QuizActions
                             disabled={!isComplete}
                             courseId={courseId}
                             moduleId={moduleId}
-                            isPublished={courseModule.isPublished}
+                            quizId={quiz.id}
+                            isPublished={quiz.isPublished}
                         />
                     </div>
                 </div>
@@ -94,45 +86,29 @@ const ModuleIdPage = async ({
                         <div className="flex items-center gap-x-2">
                             <IconBadge icon={LayoutDashboard} />
                             <h2 className="text-xl">
-                                {t("customizeChapter")}
+                                Personalize a prova
                             </h2>
                         </div>
-                        <ModuleTitleForm
-                            initialData={courseModule}
+                        <QuizTitleForm
+                            initialData={quiz}
                             courseId={courseId}
                             moduleId={moduleId}
-                        />
-                    </div>
-                    <div>
-                        <div className="flex items-center gap-x-2">
-                            <IconBadge icon={Eye} />
-                            <h2 className="text-xl">
-                                {t("accessSettings")}
-                            </h2>
-                        </div>
-                        <ModuleUnlockForm
-                            initialData={courseModule}
-                            courseId={courseId}
-                            moduleId={moduleId}
-                        />
-                        <QuizForm
-                            initialData={courseModule}
-                            courseId={courseId}
-                            moduleId={moduleId}
+                            quizId={quiz.id}
                         />
                     </div>
                 </div>
                 <div>
                     <div className="flex items-center gap-x-2">
-                        <IconBadge icon={Video} />
+                        <IconBadge icon={ListChecks} />
                         <h2 className="text-xl">
-                            {t("addLesson")}
+                            Gerenciar Perguntas
                         </h2>
                     </div>
-                    <LessonsForm
-                        initialData={courseModule}
+                    <QuestionsForm
+                        initialData={quiz}
                         courseId={courseId}
                         moduleId={moduleId}
+                        quizId={quiz.id}
                     />
                 </div>
             </div>
@@ -140,4 +116,4 @@ const ModuleIdPage = async ({
     );
 }
 
-export default ModuleIdPage;
+export default QuizIdPage;

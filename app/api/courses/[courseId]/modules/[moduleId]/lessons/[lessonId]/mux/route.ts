@@ -35,12 +35,7 @@ export async function POST(
         const upload = await video.uploads.create({
             new_asset_settings: {
                 playback_policy: ["public"],
-                input: [
-                    {
-                        url: "https://your-site.com/logo.png", // Optional: Add watermark or intros later
-                        // type: "image", 
-                    }
-                ],
+                passthrough: lessonId,
             },
             cors_origin: "*", // Adjust in production
         });
